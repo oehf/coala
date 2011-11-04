@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<title>CoALA - Patient Search</title>
+</head>
+<body>
+	<!--	<h1>-->
+	<!--		<h:outputText value="CoALA - Patient Search" style="FONT-SIZE: large;" />-->
+	<!--	</h1>-->
+	<!--	<h:outputLabel value="Welcome #{loginBean.username}"-->
+	<!--		style="COLOR: #4f9d00;"></h:outputLabel>-->
+
+	<div align="right">
+		<h:outputLabel value="logged in as #{loginBean.username}      " />
+		<h:outputLink value="/coala/login.xhtml">
+			<h:outputText value="Logout" style="FONT-SIZE: medium;"
+				acion="#{loginBean.logout}" />
+		</h:outputLink>
+	</div>
+	<div align="center">
+		<h:graphicImage id="logo" value="/resources/images/coala_logo.png"
+			title="CoALA" style=" width : 350px;" />
+		<h:form id="form">
+			<h:panelGrid id="grid" columns="4" headerClass="header"
+				footerClass="footer">
+				<f:facet name="header">
+					<h:outputText value="CoALA Patient Search" />
+				</f:facet>
+				<h:outputLabel value="Patient ID:" for="patientID" />
+				<h:inputText id="patientID" required="false"
+					value="#{patientBean.id}" />
+				<h:outputLabel value="Given Name:" for="givenName" />
+				<h:inputText id="givenName" required="false"
+					value="#{patientBean.givenName}" />
+				<h:outputLabel value="Last Name:" for="lastName" />
+				<h:inputText id="lastName" required="false"
+					value="#{patientBean.lastName}" />
+				<h:outputLabel value="Date of Birth:" for="dateOfBirth" />
+				<h:inputText id="dateOfBirth" value="#{patientBean.birthDate}"
+					required="false" />
+				<h:commandButton id="login" value="Search"
+					action="#{patientBean.search}" />
+			</h:panelGrid>
+		</h:form>
+<!--	</div>-->
+	<br></br>
+	<form>
+		<h:dataTable value="#{patientBean.patients}" var="item" border="1">
+			<f:facet name="header">
+				<h:outputText value="Result List" />
+			</f:facet>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="id" />
+				</f:facet>
+				<h:outputText value="#{item.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="given name" />
+				</f:facet>
+				<h:outputText value="#{item.givenName}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="last name" />
+				</f:facet>
+				<h:outputText value="#{item.lastName}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="day of birth" />
+				</f:facet>
+				<h:outputText value="#{item.birthDate}">
+					<f:convertDateTime pattern="dd.MM.yyyy" />
+				</h:outputText>
+			</h:column>
+		</h:dataTable>
+	</form>
+	</div>
+</body>
+</html>

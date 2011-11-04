@@ -1,0 +1,45 @@
+<classpath>
+  <classpathentry kind="src" path="src/test/java" output="target/test-classes" including="**/*.java"/>
+  <classpathentry kind="src" path="src/test/resources" output="target/test-classes" excluding="**/*.java"/>
+  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+  <classpathentry kind="src" path="target/generated-sources/groovy-stubs/main" including="**/*.java"/>
+  <classpathentry kind="src" path="src/main/groovy" including="**/*.java"/>
+  <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/ant/ant/1.7.1/ant-1.7.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/ant/ant-launcher/1.7.1/ant-launcher-1.7.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/camel/camel-core/2.2.0/camel-core-2.2.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/camel/camel-http/2.2.0/camel-http-2.2.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/camel/camel-jetty/2.2.0/camel-jetty-2.2.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/camel/camel-spring/2.2.0/camel-spring-2.2.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-codec/commons-codec/1.2/commons-codec-1.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/openehealth/ipf/commons/commons-core/2.1.0/commons-core-2.1.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-io/commons-io/1.4/commons-io-1.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/fusesource/commonman/commons-management/1.0/commons-management-1.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/openehealth/ipf/commons/commons-xml/2.1.0/commons-xml-2.1.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/geronimo/specs/geronimo-servlet_2.4_spec/1.1.1/geronimo-servlet_2.4_spec-1.1.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/groovy/groovy-all/1.6.7/groovy-all-1.6.7.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/mortbay/jetty/jetty/6.1.22/jetty-6.1.22.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/mortbay/jetty/jetty-client/6.1.22/jetty-client-6.1.22.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/mortbay/jetty/jetty-sslengine/6.1.22/jetty-sslengine-6.1.22.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/mortbay/jetty/jetty-util/6.1.22/jetty-util-6.1.22.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/mortbay/jetty/jetty-util5/6.1.22/jetty-util5-6.1.22.jar"/>
+  <classpathentry kind="var" path="M2_REPO/jline/jline/0.9.94/jline-0.9.94.jar"/>
+  <classpathentry kind="var" path="M2_REPO/junit/junit/4.4/junit-4.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/openehealth/ipf/platform-camel/platform-camel-core/2.1.0/platform-camel-core-2.1.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/net/sf/saxon/saxon/9.1.0.1/saxon-9.1.0.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/net/sf/saxon/saxon-dom/9.1.0.1/saxon-dom-9.1.0.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/mortbay/jetty/servlet-api/2.5-20081211/servlet-api-2.5-20081211.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-aop/2.5.6/spring-aop-2.5.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-beans/2.5.6/spring-beans-2.5.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-context/2.5.6/spring-context-2.5.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-core/2.5.6/spring-core-2.5.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-test/2.5.6/spring-test-2.5.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-tx/2.5.6/spring-tx-2.5.6.jar"/>
+  <classpathentry kind="lib" path="C:/Program Files/Java/jdk1.6.0_24/lib/tools.jar"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+</classpath>

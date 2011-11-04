@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<title>CoALA - Login</title>
+</head>
+<body>
+	<f:view locale="en"></f:view>
+	<div align="center">
+		<h:graphicImage id="logo" url="/resources/images/coala_logo.png"
+			title="CoALA" style=" width : 350px;" />
+		<h:form id="form">
+			<h:panelGrid id="grid" columns="3">
+
+				<h:outputLabel value="User:" for="username" />
+				<h:inputText id="username" value="#{loginBean.username}"
+					required="true">
+					<f:validateRegex pattern="[a-zA-Z0-9]*" />
+				</h:inputText>
+				<br></br>
+				<h:outputLabel value="Password:" for="password" />
+				<h:inputSecret id="password" value="#{loginBean.password}"
+					required="true" />
+				<br></br>
+				<h:commandButton id="login" value="Login"
+					action="#{loginBean.login}" />
+			</h:panelGrid>
+		</h:form>
+	</div>
+	<h:outputLabel value="#{facesContext.messages.next}"/>
+</body>
+</html>
