@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:hl7-org:v3">
+	<realmCode code="US"/>
+	<typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
+	<templateId root="1.3.6.1.4.1.19376.1.5.3.1.1.1"/>
+	<templateId root="1.3.6.1.4.1.19376.1.5.3.1.1.7"/>
+	<id root="1.2.3.4.281.371"/>
+	<code code="11488-4" displayName="Consultation Note" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+	<title>Consent to Share Information</title>
+	<effectiveTime value="20100215060000"/>
+	<confidentialityCode code="N" displayName="Normal" codeSystem="1.2.840.113619.20.2.5.2" codeSystemName="Connect-a-thon confidentialityCodes"/>
+	<languageCode code="en-US"/>
+	<recordTarget>
+		<patientRole>
+			<id extension="15" root="2.16.840.1.113883.3.37.4.1.1.2.2.1"/>
+			<addr>
+				<streetAddressLine>22 Victoria Ave</streetAddressLine>
+				<city>Philadelphia</city>
+				<state>PA</state>
+				<postalCode>19108</postalCode>
+				<country>USA</country>
+			</addr>
+			<patient>
+				<name>
+					<family>O'Connor</family>
+					<given>Mary</given>
+				</name>
+				<administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1"/>
+				<birthTime value="19800131"/>
+			</patient>
+		</patientRole>
+	</recordTarget>
+	<author>
+		<time value="20070118181526-0600"/>
+		<assignedAuthor>
+			<id root="2.16.840.1.113883.3.106.1.1251425083" extension="123"/>
+			<addr>
+				<streetAddressLine>123 Main ln</streetAddressLine>
+				<city>Philadelphia</city>
+				<state>PA</state>
+				<postalCode>19020</postalCode>
+				<country>USA</country>
+			</addr>
+			<assignedPerson>
+				<name>
+					<family>Meyers</family>
+					<given>Jim</given>
+				</name>
+			</assignedPerson>
+			<representedOrganization nullFlavor="NA"/>
+		</assignedAuthor>
+	</author>
+	<documentationOf typeCode="DOC">
+		<serviceEvent classCode="ACT" moodCode="EVN">
+			<templateId root="1.3.6.1.4.1.19376.1.5.3.1.2.6"/>
+			<id root="1.2.3.4.291.300000"/>
+			<code code="1.2.840.113619.20.2.9.3" codeSystemName="Default Privacy Policies"/>
+			<effectiveTime>
+				<low value="20100211070000"/>
+				<high value="20110211070000"/>
+			</effectiveTime>
+		</serviceEvent>
+	</documentationOf>
+	<component>
+		<structuredBody>
+			<component>
+				<section>
+					<templateId root="1.3.6.1.4.1.19376.1.5.3.1.3.23"/>
+					<code code="19826-7" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Informed Consent Obtained"/>
+					<title>Acknowledged Patient Privacy Consent Policy</title>
+					<text>
+					Normal Sharing with authorized users; emergency sharing with all users; publish
+					</text>
+				</section>
+			</component>
+		</structuredBody>
+	</component>
+</ClinicalDocument>

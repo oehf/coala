@@ -1,0 +1,6 @@
+Reworked UC-10
+Minor changes to UC-8 to also reference UC-10
+Added UC-12
+Removed fixed reference to UC-3 from UC-2
+Fixed document status in UC-3 and UC-10
+Updated UC prioritization
