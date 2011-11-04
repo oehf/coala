@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- -->
+<!-- ICW eHF Standard Configuration -->
+<!-- Created by the ICW eHF Project Template -->
+<!-- -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean name="basicLoginFilter" class="com.icw.ehf.authentication.web.basic.BasicLoginFilter">
+		<property name="realm" value="ehf" />
+		<property name="realmName" value="eHF" />
+		<property name="retry" value="false" />
+	</bean>
+
+	<bean name="PinLoginFilter" class="com.icw.ehf.authentication.web.pin.PinLoginFilter">
+		<property name="realm" value="ehf" />
+		<property name="loginUrl" value="/loginPin.jsp" />
+		<property name="defaultUrl" value="/webgui/pinWelcome" />
+		<property name="pinContext" value="EMERGENCY-KEY" />
+	</bean>
+
+	<bean name="certLoginFilter"
+		class="com.icw.ehf.authentication.web.cert.CertificateLoginFilter">
+		<property name="realm" value="ehf" />
+		<property name="optional" value="true" />
+		<!-- FIXME configure a switch enable/disable -->
+		<property name="beforeAuthenticationInterceptor">
+			<bean
+				class="com.icw.ehf.authentication.interceptors.CertificateValidationInterceptor">
+				<property name="validator" ref="validator" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean name="optionalBasicLoginFilter" class="com.icw.ehf.authentication.web.basic.BasicLoginFilter">
+		<property name="realm" value="eeehf" />
+		<property name="optional" value="true" />
+	</bean>
+
+	 <!-- We use this login filter as in SMC v2.0 (mwiesner) -->
+	<!-- <bean name="targetUriSupportingFormLoginFilter" class="com.icw.ehf.authentication.web.form.FormLoginFilter">
+		<property name="realm" value="ehf" />
+		<property name="loginUrl" value="/login.jsf" />
+		<property name="defaultUrl" value="/webgui/patientSearch.jsf" />
+		<property name="supportsTargetUri" value="true" />
+		<property name="beforeAuthenticationInterceptor">
+			<bean
+				class="com.icw.ehf.authentication.interceptors.AlreadyLoggedInCheckInterceptor" />
+		</property>
+	</bean>  -->
+
+	<bean name="servicePinLoginFilter" class="com.icw.ehf.authentication.web.form.FormLoginFilter">
+		<property name="realm" value="ehf" />
+		<property name="loginUrl" value="/servicePinLogin.jsp" />
+		<property name="defaultUrl" value="/webgui/patientSearch.jsf" />
+		<property name="supportsTargetUri" value="true" />
+		<property name="secretType" value="SERVICE-PIN" />
+
+	</bean>
+
+	<bean name="privilegedExecutionFilter"
+		class="com.icw.ehf.authentication.web.PrivilegedExecutionFilter" />
+
+	<bean name="logoutFilter" class="com.icw.ehf.authentication.web.LogoutFilter">
+		<property name="logoutUrl" value="/webgui/bye.jsf" />
+	</bean>
+
+	<bean name="webServiceFilter" class="com.icw.ehf.authentication.web.WebServiceFilter" />
+
+	<!-- This EventEmitter is fetched via a ServiceLocator from LogoutSessionListener -->
+	<bean id="logoutEventEmitter" class="com.icw.ehf.authentication.event.LogoutEventEmitter" />
+
+
+	 <!-- LoginFilter insert by mnachtma  -->
+	<bean name="formLoginFilter" class="com.icw.ehf.authentication.web.form.FormLoginFilter">
+		<property name="realm" value="ehf" />
+ 		<property name="loginUrl" value="/login.jsf" />
+		<property name="defaultUrl" value="/webgui/patientSearch.jsf" />
+	</bean>
+</beans>

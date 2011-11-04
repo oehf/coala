@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:ehf="http://www.intercomponentware.com/schema/ehf-util"
+	xsi:schemaLocation="    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd    http://www.intercomponentware.com/schema/ehf-util http://www.intercomponentware.com/schema/ehf-util/ehf-util.xsd">
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="false" />
+        <property name="ignoreUnresolvablePlaceholders" value="false" />
+        <property name="locations">
+            <list>
+                <value>classpath:/META-INF/coala-pxs.properties</value>
+            </list>
+        </property>
+    </bean>	
+    
+    <!-- XDS configuration needed to instantiate xdsTransactor and related xdsGate -->
+	<bean id="xdsConfiguration" class="de.hhn.mi.coala.xds.XDSConfigurationImpl">
+		<property name="xdsIti18endpoint" value="${coala.pxs.xds.iti18.endpoint}" />
+		<property name="xdsIti41endpoint" value="${coala.pxs.xds.iti41.endpoint}" />
+		<property name="xdsIti43endpoint" value="${coala.pxs.xds.iti43.endpoint}" />
+		<property name="assigningAuthorityOID" value="${coala.pxs.authority.oid}" />
+		<property name="longDatePattern" value="${coala.consent.longdatepattern}" />
+		<property name="shortDatePattern" value="${coala.consent.shortdatepattern}" />
+		<property name="submissionSetBaseUniqueId" value="${coala.submissionset.base.unique.id}" />
+
+		<property name="defaultSubmissionSetTitle" value="${coala.consent.default.submissionset.title}" />
+		<property name="documentsourceOid" value="${coala.documentsource.oid}" />
+		
+		<property name="consentLanguageCode" value="${coala.consent.language.code}" />
+		<property name="consentEncoding" value="${coala.consent.encoding}" />
+		<property name="consentFormatCodeCode" value="${coala.consent.format.code.code}" />
+		<property name="consentFormatCodeDisplayname" value="${coala.consent.format.code.displayname}" />
+		<property name="consentFormatCodeSchemename" value="${coala.consent.format.code.schemename}" />
+		<property name="consentDocumentTypeCodeCode" value="${coala.consent.document.type.code.code}" />
+		<property name="consentDocumentTypeCodeDisplayname" value="${coala.consent.document.type.code.displayname}" />
+		<property name="consentDocumentTypeCodeSchemename" value="${coala.consent.document.type.code.schemename}" />
+	</bean>
+	
+	<bean id="pxsDateConverter" class="de.hhn.mi.coala.util.PXSDateConverterImpl">
+		<property name="xdsConfiguration" ref="xdsConfiguration"/>
+	</bean>
+
+	<bean id="xdsGate" class="de.hhn.mi.coala.xds.XDSGateImpl">
+		<constructor-arg ref="xdsTransactor"/>
+	</bean>
+
+	<bean id="xdsTransactor" class="de.hhn.mi.coala.xds.XDSTransactorImpl">
+		<property name="xdsConfiguration" ref="xdsConfiguration"/>
+		<property name="camelContext" ref="platformCamelContext"/>
+		<property name="producerTemplate" ref="template"/>
+		<property name="pxsDateConverter" ref="pxsDateConverter"/>
+	</bean> 
+
+	
+</beans>

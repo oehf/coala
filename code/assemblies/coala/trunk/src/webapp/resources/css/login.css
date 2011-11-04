@@ -1,0 +1,45 @@
+form {
+	font-weight: bold;
+}
+
+#loginForm {
+	background-color: #FFFFFF;
+	border: thin solid #D8D8D8;
+	border-radius: 5px 5px 5px 5px;
+	margin: 120px auto;
+	margin-top: 90px;
+	padding: 20px;
+	text-align: left;
+	vertical-align: middle;
+	width: 250px;
+}
+
+#logoutForm {
+	background-color: #FFFFFF;
+	border: thin solid #D8D8D8;
+	border-radius: 5px 5px 5px 5px;
+	margin: 120px auto;
+	padding: 20px;
+	text-align: left;
+	vertical-align: middle;
+	width: 250px
+}
+
+#loginPanel {
+	background-image: url("../images/loginBackground_h400.png");
+	background-repeat: no-repeat;
+	border: 0px;
+	margin: 0px auto;
+	margin-top: 90px;
+	vertical-align: middle;
+	width: 935px;
+}
+
+#userLabel {
+	margin: 10px;
+	padding: 10px;
+}
+#pwLabel {
+	margin: 10px;
+	padding: 10px;
+}

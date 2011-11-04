@@ -1,0 +1,23 @@
+    <!-- AXIS SERVLET MAPPING -->
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- CAMEL ENDPOINT SERVLET MAPPING -->
+	<servlet-mapping>
+		<servlet-name>CamelServlet</servlet-name>
+		<url-pattern>/service/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- CAMEL ENDPOINT RESOURCE MAPPING -->
+	<servlet-mapping>
+		<servlet-name>SpringRestlet</servlet-name>
+		<url-pattern>/resource/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- TODO: REMOVE FOR PRODUCTION -->
+	<servlet-mapping>
+		<servlet-name>AxisMonitorServlet</servlet-name>
+		<url-pattern>/monitor</url-pattern>
+	</servlet-mapping>	

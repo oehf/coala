@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:ehf="http://www.intercomponentware.com/schema/ehf-util"
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:http="http://cxf.apache.org/transports/http/configuration"
+	xmlns:sec="http://cxf.apache.org/configuration/security" 
+	xmlns:cxf="http://cxf.apache.org/core"
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+						http://www.intercomponentware.com/schema/ehf-util http://www.intercomponentware.com/schema/ehf-util/ehf-util.xsd
+						http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+						http://cxf.apache.org/core 
+						http://cxf.apache.org/schemas/core.xsd
+						http://cxf.apache.org/transports/http/configuration
+						http://cxf.apache.org/schemas/configuration/http-conf.xsd
+						http://cxf.apache.org/configuration/security
+						http://cxf.apache.org/schemas/configuration/security.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	   
+    <!-- ATNA config -->
+	<bean id="iheAuditorContext"
+	      class="org.openhealthtools.ihe.atna.auditor.context.AuditorModuleContext"
+	      factory-method="getContext" />
+	
+	<bean id="iheAuditorConfig"
+	      factory-bean="iheAuditorContext"
+	      factory-method="getConfig">
+	   <property name="auditRepositoryHost" value="icw-pxs.iap.hs-heilbronn.de" />
+	   <property name="auditRepositoryPort" value="514" />
+	   <property name="auditSourceId" value="coala-ipf-xds" />
+	   <property name="auditEnterpriseSiteId" value="iap.hs-heilbronn.de" />
+	</bean>
+
+	<!-- Default config of CamelContext -->
+	<camel:camelContext id="platformCamelContext">
+		<camel:routeBuilder ref="xdsRouteBuilder" />
+		<camel:routeBuilder ref="pdqRouteBuilder" />
+	</camel:camelContext>
+
+	<bean id="pdqRouteBuilder" depends-on="pdqRouteModelExtender"
+		class="de.hhn.mi.coala.groovy.PDQRouteBuilder">
+	</bean>
+
+	<!--  <bean id="pdqModelExtension" class="de.hhn.mi.coala.groovy.PDQModelExtension">
+	</bean>-->
+
+	<bean id="hl7codec" class="org.apache.camel.component.hl7.HL7MLLPCodec">
+		<property name="charset" value="iso-8859-1" />
+	</bean>
+
+	<!-- HAPI extensions -->
+	<bean id="hapiModelExtension"
+		class="org.openehealth.ipf.modules.hl7.extend.HapiModelExtension">
+		<!-- <property name="mappingService" ref="..." /> -->
+	</bean>
+
+	<!-- General Mapping extensions <bean id="mappingExtension" class="org.openehealth.ipf.commons.map.extend.MappingExtension"> 
+		<property name="mappingService" ref="..." /> </bean> -->
+
+	<!-- Camel DSL extensions -->
+	<bean id="hl7ModelExtension"
+		class="org.openehealth.ipf.platform.camel.hl7.extend.Hl7ModelExtension">
+	</bean>
+
+	<bean id="coreModelExtension"
+		class="org.openehealth.ipf.platform.camel.core.extend.CoreModelExtension">
+	</bean>
+
+	<bean id="pdqRouteModelExtender"
+		class="org.openehealth.ipf.platform.camel.core.extend.DefaultModelExtender">
+		<property name="routeModelExtensions">
+			<list>
+				<ref bean="coreModelExtension" />
+				<!-- <ref bean="pdqModelExtension" />-->
+				<ref bean="hl7ModelExtension" />
+				<ref bean="hapiModelExtension" />
+				<!-- <ref bean="mappingExtension" /> -->
+			</list>
+		</property>
+	</bean>
+	
+	<!-- enabling webservice logging here -->
+	<bean id="logInbound" class="org.apache.cxf.interceptor.LoggingInInterceptor" />
+	<bean id="logOutbound" class="org.apache.cxf.interceptor.LoggingOutInterceptor" />
+	<cxf:bus>
+		<!-- Activating the logging of every inbound message for debugging purposes -->
+		<cxf:inInterceptors>
+			<ref bean="logInbound" />
+		</cxf:inInterceptors>
+
+		<!-- if you activate this a ClassCastException will occur in a class Dymtro 
+			has written... -->
+		<!-- <cxf:outInterceptors> -->
+		<!-- <ref bean="logOutbound"/> -->
+		<!-- </cxf:outInterceptors> -->
+	</cxf:bus>
+
+
+	<!-- This is needed to define secure PXS/XDS communication for ITI-41 endpoint -->
+	<http:conduit
+		name="https://icw-pxs.iap.hs-heilbronn.de:8443/pxs-vmr-assembly/webservices/xdsb-provideandregister.*">
+		<http:tlsClientParameters disableCNCheck="true">
+
+			<sec:keyManagers keyPassword="changeit">
+				<sec:keyStore type="JKS" password="changeit" resource="coala-keystore.jks" />
+			</sec:keyManagers>
+			<sec:trustManagers>
+				<sec:keyStore type="JKS" password="changeit" resource="coala-keystore.jks" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+				<!-- these filters ensure that a ciphersuite with export-suitable or 
+					null encryption is used, but exclude anonymous Diffie-Hellman key change 
+					as this is vulnerable to man-in-the-middle attacks -->
+				<sec:include>.*_EXPORT_.*</sec:include>
+				<sec:include>.*_EXPORT1024_.*</sec:include>
+				<sec:include>.*_WITH_DES_.*</sec:include>
+				<sec:include>.*_WITH_NULL_.*</sec:include>
+				<sec:exclude>.*_DH_anon_.*</sec:exclude>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:authorization>
+			<sec:UserName>xdsRegister</sec:UserName>
+			<sec:Password>Pass1234_</sec:Password>
+		</http:authorization>
+	</http:conduit>
+	<!-- This is needed to define secure PXS/XDS communication for the ITI-18 
+		and ITI-43 endpoint -->
+	<http:conduit name="*.http-conduit">
+		<http:tlsClientParameters disableCNCheck="true">
+
+			<sec:keyManagers keyPassword="changeit">
+				<sec:keyStore type="JKS" password="changeit" resource="coala-keystore.jks" />
+			</sec:keyManagers>
+			<sec:trustManagers>
+				<sec:keyStore type="JKS" password="changeit" resource="coala-keystore.jks" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+				<!-- these filters ensure that a ciphersuite with export-suitable or 
+					null encryption is used, but exclude anonymous Diffie-Hellman key change 
+					as this is vulnerable to man-in-the-middle attacks -->
+				<sec:include>.*_EXPORT_.*</sec:include>
+				<sec:include>.*_EXPORT1024_.*</sec:include>
+				<sec:include>.*_WITH_DES_.*</sec:include>
+				<sec:include>.*_WITH_NULL_.*</sec:include>
+				<sec:exclude>.*_DH_anon_.*</sec:exclude>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:authorization>
+			<sec:UserName>xdsUser</sec:UserName>
+			<sec:Password>Pass1234_</sec:Password>
+		</http:authorization>
+	</http:conduit>
+
+	<bean id="xdsRouteBuilder" depends-on="xdsRouteModelExtender"
+		class="de.hhn.mi.coala.groovy.XDSRouteBuilder">
+	</bean>
+
+	<bean id="xdsModelExtension"
+		class="org.openehealth.ipf.platform.camel.ihe.xds.core.extend.XDSModelExtension">
+	</bean>
+
+	<bean id="cdaModelExtension"
+		class="org.openehealth.ipf.modules.cda.builder.CDAR2ModelExtension">
+	</bean>
+
+	<bean id="xdsRouteModelExtender"
+		class="org.openehealth.ipf.platform.camel.core.extend.DefaultModelExtender">
+		<property name="routeModelExtensions">
+			<list>
+				<ref bean="coreModelExtension" />
+				<ref bean="xdsModelExtension" />
+				<ref bean="cdaModelExtension" />
+			</list>
+		</property>
+	</bean>
+</beans>

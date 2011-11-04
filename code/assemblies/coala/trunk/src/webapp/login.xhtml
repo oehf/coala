@@ -1,0 +1,47 @@
+<ui:composition template="/webgui/templateLogin.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<ui:define name="content">
+		<f:view locale="#{localeHandler.locale}">
+			<f:loadBundle basename="messages" var="msg" />
+			<rich:panel id="loginPanel">
+			<h:form method="post" id="loginForm">
+					<h:outputText class="heading" value="#{msg['login.heading']}" />
+					<h:panelGrid columns="3" id="loginGrid" columnClasses="gridCellLeftFixedSize,gridCellLeft">
+						<f:event listener="#{loginBean.validateLoginParameters}" type="postValidate" />
+						
+						<h:outputLabel id="userLabel" value="#{msg['label.username']}"
+							for="j_username" class="label" />
+						<h:inputText id="j_username" value="#{loginBean.username}">
+							<f:validateRegex pattern="[a-zA-Z0-9]*" />
+						</h:inputText>
+						<rich:message for="j_username" ajaxRendered="true" />
+
+						<h:outputLabel id="pwLabel" value="#{msg['label.password']}"
+							for="j_password" class="label" />
+						<h:inputSecret id="j_password" value="#{loginBean.password}"/>
+						<rich:message for="j_password" ajaxRendered="true" />
+						
+						<h:panelGroup>
+							<h:commandButton id="loginButton" value="#{msg['button.login']}"
+								action="/webgui/patientSearch.xhtml?faces-redirect=true&amp;includeViewParams=true" class="button">
+							</h:commandButton>
+							<h:inputHidden id="selected_locale" value="#{localeHandler.locale}"/>
+							<h:outputLabel/>
+						</h:panelGroup>
+
+						<h:panelGroup>
+							<rich:messages minLevel="INFO" showDetail="true"/>
+							<h:outputLabel/>
+							<h:outputLabel/>
+						</h:panelGroup>
+					</h:panelGrid>
+			</h:form>
+			</rich:panel>
+		</f:view>
+	</ui:define>
+</ui:composition>

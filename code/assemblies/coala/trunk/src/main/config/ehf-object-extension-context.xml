@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--                                         -->
+<!-- ICW eHF Standard Configuration          -->
+<!-- Created by the ICW eHF Project Template -->
+<!--                                         -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- enable object extensions on the record module -->
+	<bean id="recordObjectExtensionConfig"
+        class="com.icw.ehf.commons.spring.PropertySetBeanFactoryPostProcessor">
+        <property name="targetBeanName" value="recordModuleServiceTarget" />
+            <property name="values">
+                <map>
+                    <entry key="objectExtensionManager" value="objectExtensionManager" />
+                </map>
+        </property>
+    </bean>
+    
+    <!-- the objectExtensionManager is provided by the ehf-document module -->
+	<alias alias="objectExtensionManager" name="documentObjectExtensionManager"/>
+	
+</beans>

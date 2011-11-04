@@ -1,0 +1,26 @@
+	<filter-mapping>
+	  <filter-name>filterChain</filter-name>
+	  <url-pattern>/*</url-pattern>
+	</filter-mapping>
+    <filter-mapping>
+		<filter-name>EnableCacheFilter</filter-name>
+		<url-pattern>*.png</url-pattern>
+  	</filter-mapping>
+    <filter-mapping>
+		<filter-name>EnableCacheFilter</filter-name>
+		<url-pattern>*.gif</url-pattern>
+  	</filter-mapping>
+  	<filter-mapping>
+		<filter-name>EnableCacheFilter</filter-name>
+		<url-pattern>*.css</url-pattern>
+  	</filter-mapping>
+  	<filter-mapping>
+		<filter-name>EnableCacheFilter</filter-name>
+		<url-pattern>*.js</url-pattern>
+  	</filter-mapping>
+  	
+  	<!-- UTF-8 Encoding HTTP response enforcer filter (mwiesner) -->
+	<filter-mapping>
+	    <filter-name>utf8EncodingFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>

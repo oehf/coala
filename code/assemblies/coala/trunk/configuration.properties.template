@@ -1,0 +1,21 @@
+#############################################
+##     ICW eHF Standard Configuration      ##
+## Created by the ICW eHF Project Template ##
+#############################################
+
+#
+# Central configuration file. This file includes all required additional
+# configuration files and may be used to overwrite properties in the included
+# files.
+#
+# The order of priority is configuration.properties, ${configuration.include} 
+#
+
+# include additional property files
+configuration.include=\
+	${basedir}/configuration/configuration.password.properties,\
+	${basedir}/configuration/configuration.deployment.properties,\
+	${basedir}/configuration/configuration.product.instance.properties,\
+	${basedir}/configuration/configuration.product.properties
+	
+# overwrite properties located in the included files possible

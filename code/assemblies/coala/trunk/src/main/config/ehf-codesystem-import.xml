@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--                                         -->
+<!-- ICW eHF Standard Configuration          -->
+<!-- Created by the ICW eHF Project Template -->
+<!--                                         -->
+<ehf-codesystem
+	xmlns="http://www.intercomponentware.com/schema/ehf-codesystem">
+	<import id="ehf2.7/test" abstract="false">
+		<description>ehf test import</description>
+		@@@codesystem.import.include.fragment@@@
+
+		<locales>
+			<locale language="en" />
+			<locale language="de" />
+		</locales>
+
+		<error-levels>
+			<status id="deprecated" level="warn" />
+		</error-levels>
+
+		<validation-rules>
+            <extensible-codesystems>
+                <codesystem oid="1.2.276.0.76.5.357" version="1.0.0" />
+            </extensible-codesystems>
+			<extensible-categories>
+				<category name="C-OBSERVATION-CODE" />
+				<category name="C-DOCUMENT-CODE" />
+				<category name="C-REFERENCE-TYPE" />
+			</extensible-categories>
+		</validation-rules>
+
+	</import>
+</ehf-codesystem>

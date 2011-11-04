@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--                                         -->
+<!-- ICW eHF Standard Configuration          -->
+<!-- Created by the ICW eHF Project Template -->
+<!--                                         -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:ehf="http://www.intercomponentware.com/schema/ehf-commons"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xsi:schemaLocation="
+		    http://www.springframework.org/schema/util
+            http://www.springframework.org/schema/util/spring-util.xsd
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.intercomponentware.com/schema/ehf-commons http://www.intercomponentware.com/schema/ehf-commons/ehf-commons.xsd">
+			
+	<!-- this is an example configuration extension for providing custom adapters -->
+
+	<!-- define a special adapter (icd10) -->
+	<bean id="icd10CodeResolver" class="com.icw.ehf.commons.codesystem.impl.DefaultCodeResolverAdapter">
+		<property name="delegateCodeResolver" ref="codesystemModuleService"/>
+		<property name="resolveQualifiers">
+			<list>
+				<value>1.2.276.0.76.5.330|1.0.0</value>
+				<value>1.2.276.0.76.5.356|1.0.0</value>
+			</list>
+		</property>
+		<property name="queryQualifiers">
+			<list>
+				<value>1.2.276.0.76.5.330|1.0.0</value>
+				<value>1.2.276.0.76.5.356|1.0.0</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- define a special adapter (pzn) -->
+	<bean id="pznCodeResolver" class="com.icw.ehf.commons.codesystem.impl.DefaultCodeResolverAdapter">
+		<property name="delegateCodeResolver" ref="codesystemModuleService"/>
+		<property name="resolveQualifiers">
+			<list>
+				<value>1.2.276.0.76.4.6|1.0.0</value>
+			</list>
+		</property>
+		<property name="queryQualifiers">
+			<list>
+				<value>1.2.276.0.76.4.6|1.0.0</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- compose a new adapter list -->
+	<util:list id="customCodeResolverAdapters">
+	   <ref bean="icd10CodeResolver"/>
+       <ref bean="pznCodeResolver"/>
+	</util:list>
+	
+	<ehf:definition-extension target-module-id="codesystemModule" target-bean-name="compositeCodeResolver">
+			<ehf:property name="codeResolverAdapters" ref="customCodeResolverAdapters" />
+	</ehf:definition-extension>
+	
+	<!-- Dummy beans for mmiMonitorService and icdMonitorService. 
+	     The real beans are defined in ehf-adapter-external-context.xml. -->
+	<bean id ="mmiMonitorService" class="com.icw.ehf.integration.monitor.MmiMonitorServiceMock" />
+	<bean id ="icdMonitorService" class="com.icw.ehf.integration.monitor.IcdMonitorServiceMock" />
+	
+	<!-- Dummy beans for manufactured product resolver -->
+	<bean id="manufacturedProductResolver" class="com.icw.ehf.record.medical.adapter.impl.ManufacturedProductResolverMock"/>
+	
+	
+</beans>

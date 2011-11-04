@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:ehf="http://www.intercomponentware.com/schema/ehf-util"
+	xsi:schemaLocation="    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd    http://www.intercomponentware.com/schema/ehf-util http://www.intercomponentware.com/schema/ehf-util/ehf-util.xsd">
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="false" />
+        <property name="ignoreUnresolvablePlaceholders" value="false" />
+        <property name="locations">
+            <list>
+                <value>classpath:/META-INF/coala-pxs.properties</value>
+            </list>
+        </property>
+    </bean>	
+
+	<bean id="pdqGate" class="de.hhn.mi.coala.pdq.PDQGateImpl">
+		<property name="pdqTransactor" ref="pdqTransactor"/>
+	</bean>
+
+	<bean id="pdqTransactor" class="de.hhn.mi.coala.pdq.PDQTransactorImpl">
+		<constructor-arg value="${coala.pxs.pdq.endpoint.url}" />
+		<constructor-arg ref="platformCamelContext" />
+		<constructor-arg ref="template" />
+	</bean> 
+
+	
+</beans>

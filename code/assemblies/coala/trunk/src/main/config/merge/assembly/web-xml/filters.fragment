@@ -1,0 +1,28 @@
+	<filter>
+	  <filter-name>filterChain</filter-name>
+	  <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>EnableCacheFilter</filter-name>
+    	<filter-class>com.icw.ehf.commons.web.filter.EnableCacheFilter</filter-class>
+        	<init-param>
+			<param-name>expire</param-name>
+			<!-- expiration value is in seconds 300s == 5min -->
+			<param-value>300</param-value>
+		</init-param>	
+    </filter>
+
+	<!-- UTF-8 Encoding HTTP response enforcer filter (mwiesner) -->
+    <filter>
+	    <filter-name>utf8EncodingFilter</filter-name>
+	    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	    <init-param>
+	        <param-name>encoding</param-name>
+	        <param-value>UTF-8</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>forceEncoding</param-name>
+	        <param-value>true</param-value>
+	    </init-param>
+	</filter>

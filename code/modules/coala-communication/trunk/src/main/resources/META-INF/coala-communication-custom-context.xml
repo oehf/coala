@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:ehf="http://www.intercomponentware.com/schema/ehf-util"
+	xsi:schemaLocation="    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd    http://www.intercomponentware.com/schema/ehf-util http://www.intercomponentware.com/schema/ehf-util/ehf-util.xsd">
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="false" />
+        <property name="ignoreUnresolvablePlaceholders" value="false" />
+        <property name="locations">
+            <list>
+                <value>classpath:/META-INF/coala-pxs.properties</value>
+            </list>
+        </property>
+    </bean>	
+
+	<bean id="pxsQueryService" class="de.hhn.mi.coala.service.PXSQueryServiceImpl">
+		<property name="cdaService" ref="cdaService"/>
+		<property name="pdqGate" ref="pdqGate"/>
+		<property name="xdsGate" ref="xdsGate"/>
+		<property name="pdqMessageBuilder" ref="pdqMessageBuilder"/>
+		<property name="consentConverter" ref="consentConverter"/>
+		<property name="documentEntryBuilder" ref="documentEntryBuilder"/>
+	</bean>
+	
+	<bean id="cdaService" class="de.hhn.mi.coala.service.CDATransformationServiceImpl">
+		<property name="nameOfXSLTSheet" value="text_xml-urn_ihe_iti_bppc_2007.xsl"/>
+		<property name="documentEntryBuilder" ref="documentEntryBuilder"/>
+		<property name="cdaBuilder" ref="cdaBuilder"/>
+	</bean>
+	
+	<bean id="pdqMessageBuilder" class="de.hhn.mi.coala.communication.PdqMessageBuilder">
+		<property name="pxsDateConverter" ref="pxsDateConverter"/>
+	</bean>
+	
+	<bean id="documentEntryBuilder" class="de.hhn.mi.coala.builder.DocumentEntryBuilder">
+		<property name="pxsDateConverter" ref="pxsDateConverter"/>
+	</bean>
+	
+	<bean id="cdaBuilder" class="de.hhn.mi.coala.builder.CDABuilder">
+		<constructor-arg value="CDATemplate.txt"/>
+		<property name="pxsDateConverter" ref="pxsDateConverter"/>
+	</bean>
+	
+	<bean id="consentConverter" class="de.hhn.mi.coala.converter.ConsentConverter">
+		<property name="pxsDateConverter" ref="pxsDateConverter"/>
+	</bean>
+</beans>

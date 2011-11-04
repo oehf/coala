@@ -1,0 +1,33 @@
+	<security-constraint>
+		<web-resource-collection>
+		<web-resource-name>ehf-resources</web-resource-name>
+			<!-- Uncomment after Apache bug is fixed -->
+			<!-- <url-pattern>/cert.jsp</url-pattern> -->
+
+           	<url-pattern>/services/*</url-pattern>
+         	
+         	<!-- CAMEL ENDPOINTS TO SUPPORT IPF -->
+         	<url-pattern>/resource/*</url-pattern>
+			<url-pattern>/service/*</url-pattern>
+			
+         	<!-- TODO: REMOVE FOR PRODUCTION -->
+			<url-pattern>/monitor/*</url-pattern>
+
+			<!-- document up- and download -->
+			<url-pattern>/streamHandling/*</url-pattern>
+			<url-pattern>/fileupload/*</url-pattern>
+			<url-pattern>/filedownload/*</url-pattern>
+			
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+			<http-method>PUT</http-method>
+			<http-method>DELETE</http-method>
+			<http-method>HEAD</http-method>
+			<http-method>OPTIONS</http-method>
+			<http-method>TRACE</http-method>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	

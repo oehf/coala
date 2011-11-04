@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--                                         -->
+<!-- ICW eHF Standard Configuration          -->
+<!-- Created by the ICW eHF Project Template -->
+<!--                                         -->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xmlns:ehf="http://www.intercomponentware.com/schema/ehf-commons" xmlns:error="http://www.intercomponentware.com/schema/ehf-errorhandling"
+	 xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.intercomponentware.com/schema/ehf-commons http://www.intercomponentware.com/schema/ehf-commons/ehf-commons.xsd http://www.intercomponentware.com/schema/ehf-errorhandling http://www.intercomponentware.com/schema/ehf-errorhandling/ehf-errorhandling.xsd">
+	<bean id="webserviceExceptionHandler" class="com.icw.ehf.commons.errorhandling.handler.CompositeExceptionHandler">
+		<property name="exceptionHandlers">
+			<list>
+				<!-- the unwrapping exception handler extracts the original exception from a nested structure -->
+
+				<bean class="com.icw.ehf.commons.errorhandling.handler.UnwrappingExceptionHandler"/>
+				<!-- the log exception handler produces a log entry and a support ticket -->
+				<bean class="com.icw.ehf.commons.errorhandling.handler.LogExceptionHandler"/>
+			</list>
+		</property>
+	</bean>
+	<error:resolver id="exceptionMappingErrorDetailResolver" systemId="2.16.840.1.113883.3.37.2.9.5.1">
+		<error:mapping errorCode="SEC-000201" key="java.security.AccessControlException"/>
+		<error:mapping errorCode="SEC-000202" key="com.icw.ehf.authentication.exceptions.UserDeactivatedException"/>
+		<error:mapping errorCode="SEC-000206" key="com.icw.ehf.authentication.exceptions.password.InvalidUsernamePasswordException"/>
+		<error:mapping errorCode="SEC-000203" key="com.icw.ehf.authentication.exceptions.identifier.UserIdentifierDeactivatedException"/>
+		<error:mapping errorCode="SYS-000103" key="com.icw.ehf.commons.service.exception.NoCrudServiceAvailableException"/>
+		<error:mapping errorCode="VAL-000301" key="com.icw.ehf.commons.exception.validation.ValidationException"/>
+		<error:mapping errorCode="VAL-000319" key="com.icw.ehf.commons.exception.service.MissingArgumentException"/>
+		<error:mapping errorCode="VAL-000320" key="com.icw.ehf.commons.webapi.service.exception.TypeMappingException"/>
+	</error:resolver>
+	<bean id="abstractErrorDetailResolver" class="com.icw.ehf.commons.errorhandling.resolver.PlatformCompositeErrorDetailResolver"
+		 abstract="true">
+		<property name="errorCodeResolvers">
+			<list>			    @@@error.resolver.fragment@@@
+				<ref bean="exceptionMappingErrorDetailResolver"/>
+				<bean class="com.icw.ehf.commons.errorhandling.resolver.MetaDataValidationErrorResolver"/>
+				<bean class="com.icw.ehf.commons.errorhandling.resolver.DefaultErrorDetailResolver"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="webserviceErrorDetailResolver" parent="abstractErrorDetailResolver">
+		<property name="throwableArgumentExtractor" ref="webserviceThrowableArgumentExtractor"/>
+	</bean>
+	<bean id="webserviceThrowableArgumentExtractor" class="com.icw.ehf.commons.errorhandling.argument.CompositeThrowableArgumentExtractor">
+		<property name="throwableArgumentExtractors">
+			<list>
+				<bean class="com.icw.ehf.commons.errorhandling.argument.InstrumentedExceptionArgumentExtractor"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="webserviceErrorMessageSource" class="com.icw.ehf.commons.codesystem.errorhandling.message.CodeErrorMessageSource">
+		<constructor-arg ref="codeResolverService"/>
+	</bean>
+	<bean id="webserviceErrorProcessor" class="com.icw.ehf.commons.errorhandling.ErrorProcessorImpl">
+		<property name="exceptionHandler" ref="webserviceExceptionHandler"/>
+		<property name="errorDetailResolver" ref="webserviceErrorDetailResolver"/>
+		<property name="errorMessageSource" ref="webserviceErrorMessageSource"/>
+	</bean>
+	<bean id="webserviceErrorHandler" class="com.icw.ehf.commons.axis.servlet.AxisErrorHandler">
+		<property name="errorProcessor" ref="webserviceErrorProcessor"/>
+		<property name="errorDetailNamespace" value="http://ehf.icw.com/errordetail"/>
+		<property name="errorCodeNamespace" value="http://ehf.icw.com/errorcode"/>
+		<!-- this property enables backward compatibility -->
+		<!-- <property name="exceptionCompatible" value="true"/> -->
+	</bean>
+</beans>

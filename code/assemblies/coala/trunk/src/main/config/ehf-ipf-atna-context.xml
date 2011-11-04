@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--                                         -->
+<!-- ICW eHF Standard Configuration          -->
+<!-- Created by the ICW eHF Project Template -->
+<!--                                         -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util.xsd   
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/lang 
+        http://www.springframework.org/schema/lang/spring-lang.xsd">
+
+    <!-- TODO verify modify configuration and replace with tokens -->
+    <bean id="iheAuditor" class="org.openhealthtools.ihe.atna.auditor.IHEAuditor" 
+            factory-method="getAuditor"> 
+        <property name="config" ref="atnaConfig" /> 
+    </bean> 
+    
+    <bean id="atnaConfig" class="org.openhealthtools.ihe.atna.auditor.context.AuditorModuleConfig"> 
+        <property name="auditRepositoryHost"       value="@@atna.audit.repository.host@@" /> 
+        <property name="auditRepositoryPort"       value="@@atna.audit.repository.port@@" /> 
+        <property name="auditSourceId"             value="@@product.atna.audit.source.id@@" /> 
+        <property name="auditEnterpriseSiteId"     value="@@product.atna.audit.enterprise.site.id@@" /> 
+    </bean> 
+
+    <!-- remove comment to enable -->
+	<!-- <bean id="atnaEventProcessingRouteBuilder" class="com.icw.ehf.assembly.integration.AtnaEventProcessingRouteBuilder"/> -->
+	
+    <bean id="atnaTransmogrifierAdapterProcessor" class="com.icw.ehf.integration.atna.transmogrify.TransmogrifierAdapterProcessor">
+        <property name="transmogrifier" ref="atnaTransmogrifier"/>
+    </bean>
+
+    <bean id="atnaTransmogrifier" class="com.icw.ehf.integration.atna.transmogrify.CompositeTransmogrifier" >
+        <property name="transmogrifiers" ref="atnaTransmogrifiers" />
+        <property name="postProcessors">
+        	<list>
+        		<bean class="com.icw.ehf.integration.atna.transmogrify.NetworkAccessPointIDTransmogrifier"/>
+        		<bean class="com.icw.ehf.integration.atna.transmogrify.SourceIdTransmogrifier">
+        			<property name="productInstanceIdentifier" ref="productInstanceIdentifier"/>
+        		</bean>
+        	</list>
+        </property>
+    </bean>
+    
+    <util:map id="atnaTransmogrifiers">
+        <entry key="com.icw.ehf.commons.event.ApplicationLifecycleEvent">
+            <bean class="com.icw.ehf.integration.atna.transmogrify.ApplicationLifecycleEventTransmogrifier" />            
+        </entry>
+        <entry key="com.icw.ehf.usermgnt.event.SecretAuthenticationEvent">
+            <bean class="com.icw.ehf.integration.atna.transmogrify.AuthenticationEventTransmogrifier" />            
+        </entry>
+        <entry key="com.icw.ehf.usermgnt.event.CertificateAuthenticationEvent">
+            <bean class="com.icw.ehf.integration.atna.transmogrify.AuthenticationEventTransmogrifier" />            
+        </entry>
+        <entry key="com.icw.ehf.usermgnt.event.PasswordAuthenticationEvent">
+            <bean class="com.icw.ehf.integration.atna.transmogrify.AuthenticationEventTransmogrifier" />            
+        </entry>
+        <entry key="com.icw.ehf.usermgnt.event.IdentifierAuthenticationEvent">
+            <bean class="com.icw.ehf.integration.atna.transmogrify.AuthenticationEventTransmogrifier" />            
+        </entry>
+        <entry key="com.icw.ehf.authentication.event.LogoutEvent">
+            <bean class="com.icw.ehf.integration.atna.transmogrify.LogoutEventTransmogrifier" />            
+        </entry>
+        <entry key="com.icw.ehf.configuration.event.PlaceholderValueChangeEvent">
+            <bean class="com.icw.ehf.integration.atna.transmogrify.PlaceholderValueChangeEventTransmogrifier" />            
+        </entry>
+        <entry key="com.icw.ehf.usermgnt.event.UsermgntEntityEvent">
+            <bean class="com.icw.ehf.integration.atna.transmogrify.UsermgntEntityEventTransmogrifier" />            
+        </entry>
+    </util:map>
+    
+    <bean id="atnaAuditEventMessageProcessor" class="com.icw.ehf.integration.atna.AtnaAuditEventMessageProcessor" >
+        <property name="iheAuditor">
+            <ref bean="iheAuditor" />
+        </property>
+    </bean>
+    
+</beans>

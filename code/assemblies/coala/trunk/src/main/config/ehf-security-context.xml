@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--                                         -->
+<!-- ICW eHF Standard Configuration          -->
+<!-- Created by the ICW eHF Project Template -->
+<!--                                         -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- AS THIS CAUSES PROBLEM to any request at the moment resulting in an 
+		HTTP 500 error (which redirects us to the error page) we have decided to 
+		deactivated this CSRF security feature of the EHF framework as none knows 
+		how this can be made working... (astiefer, mwiesner) -->
+
+<!-- 	<bean name="csrfGuardFilter"  -->
+<!-- 		class="com.icw.ehf.commons.security.web.csrf.filter.CSRFGuardFilter"> -->
+<!-- 		<property name="entryPoints"> -->
+<!-- 		  <set> -->
+<!-- 		      <value>/webgui/welcome.jsp</value> -->
+<!-- 		  </set> -->
+<!-- 		</property> -->
+		
+<!-- 		<property name="nonceIntroducers"> -->
+<!-- 		  <set> -->
+<!-- 		      <bean class="com.icw.ehf.commons.security.web.csrf.introducer.XHTMLResponseExpander" /> -->
+<!-- 		  </set> -->
+<!-- 		</property> -->
+		
+<!-- 		<property name="nonceProvider"> -->
+<!-- 		  <bean class="com.icw.ehf.commons.security.web.csrf.nonce.DefaultNonceProvider" /> -->
+<!-- 		</property> -->
+		
+<!-- 		<property name="nonceValidationListeners"> -->
+<!-- 		  <set> -->
+<!--              <bean class="com.icw.ehf.commons.security.web.csrf.listener.LogNonceValidationListenerImpl"/> -->
+<!--              <ref bean="auditValidationListener"/> -->
+<!--           </set> -->
+<!-- 		</property> -->
+		
+<!-- 		<property name="nonceValidators"> -->
+<!-- 		  <set> -->
+<!-- 		      <bean class="com.icw.ehf.commons.security.web.csrf.validation.RequestParamNonceValidator"/> -->
+<!-- 		  </set> -->
+<!-- 		</property> -->
+<!-- 	</bean>	 -->
+
+ 	<bean id="auditValidationListener" class="com.icw.ehf.commons.security.web.csrf.listener.AuditNonceValidationListenerImpl" />
+	
+</beans>

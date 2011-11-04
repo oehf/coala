@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--                                         -->
+<!-- ICW eHF Standard Configuration          -->
+<!-- Created by the ICW eHF Project Template -->
+<!--                                         -->
+
+<!-- 
+
+CHARACTERISTICS
+
+	This file contains all profiles that require no versioning. Normally profiles that 
+    address particular purposes like the owner profiles are classified in this category.
+	
+	All profiles defined in this file do not need to specify a version and status 
+    (defaults to ACTIVE).
+	
+-->
+
+<authorization>
+    <namedProfiles>
+
+        <!-- 
+            Profile OWN-USR: assigned to owners of a usermgnt account
+        -->
+        <namedProfile>
+        
+            <profile>
+                <permission>
+                    <target>
+                        <type>com.icw.ehf.usermgnt</type>
+                        <role>*</role>
+                        <context>*</context>
+                        <identifier>*</identifier>
+                    </target>
+                    <actions>
+                        <action>READ</action>
+                    </actions>
+                </permission>
+                <permission>
+                    <target>
+                        <type>com.icw.ehf.usermgnt.domain.UserSecret.PASSWORD</type>
+                        <role>*</role>
+                        <context>*</context>
+                        <identifier>*</identifier>
+                    </target>
+                    <actions>
+                        <action>UPDATE</action>
+                    </actions>
+                </permission>
+                <permission>
+                    <target>
+                        <type>com.icw.ehf.usermgnt.domain.UserSecret.SERVICEPIN</type>
+                        <role>*</role>
+                        <context>*</context>
+                        <identifier>*</identifier>
+                    </target>
+                    <actions>
+                        <action>UPDATE</action>
+                    </actions>
+                </permission>
+                <permission>
+                	<target>
+                		<type>com.icw.ehf.usermgnt.domain.UserIdentifier.USERNAME</type>
+                		<role>*</role>
+                		<context>*</context>
+                		<identifier>*</identifier>
+                	</target>
+                	<actions>
+                		<action>READ</action>
+                		<action>UPDATE</action>
+                	</actions>
+                </permission>
+                <permission>
+                    <target>
+                        <type>com.icw.ehf.usermgnt.domain.UserIdentifier.CERTIFICATE-OWNER-ID</type>
+                        <role>*</role>
+                        <context>*</context>
+                        <identifier>*</identifier>
+                    </target>
+                    <actions>
+                        <action>CREATE</action>
+                        <action>READ</action>
+                        <action>UPDATE</action>
+                        <action>DELETE</action>
+                    </actions>
+                </permission>
+            </profile>
+            <category>FUNCT</category>
+            <name>OWN-USR</name>
+        </namedProfile>
+        
+        <!-- 
+            Profile OWN-SERVICE-PIN: assigned to owners of a usermgnt account
+        -->
+        <namedProfile>
+            <profile>
+                <permission>
+                    <target>
+                        <type>com.icw.ehf.usermgnt</type>
+                        <role>*</role>
+                        <context>*</context>
+                        <identifier>*</identifier>
+                    </target>
+                    <actions>
+                        <action>READ</action>
+                    </actions>
+                </permission>
+            </profile>
+            <category>FUNCT</category>
+            <name>OWN-SERVICE-PIN</name>
+        </namedProfile>
+
+        <!-- 
+            Profile OWN-PRF: assigned to owners of a professional account
+        -->
+        <namedProfile>
+            <profile>
+                <permission>
+                    <target>
+                        <type>com.icw.ehf.document</type>
+                        <role>*</role>
+                        <context>*</context>
+                        <identifier>*</identifier>
+                    </target>
+                    <actions>
+                        <action>CREATE</action>
+                        <action>READ</action>
+                        <action>UPDATE</action>
+                        <action>DELETE</action>
+                        <action>EXECUTE</action>
+                        <action>AUTH_CRUDE</action>
+                        <action>AUTH_CRUDE_DELEGATE</action>
+                        <action>AUTH_SEED</action>
+                    </actions>
+                </permission>
+            </profile>
+            <category>FUNCT</category>
+            <name>OWN-PRF</name>
+        </namedProfile>
+
+        <!-- 
+            Profile OWN-CORE: assigned to owners of a health record core package
+        -->
+        <namedProfile>
+            <profile>
+                <permission>
+                    <target>
+						<!-- for testing of regular expressions on types -->
+                        <!--  <type>^com\.icw\.ehf\.record\..*$</type>-->
+                       <type>com.icw.ehf.record</type>
+                        <role>*</role>
+                        <context>*</context>
+                        <identifier>*</identifier>
+                    </target>
+                    <actions>
+                        <action>CREATE</action>
+                        <action>READ</action>
+                        <action>UPDATE</action>
+                        <action>DELETE</action>
+                        <action>ADD</action>
+                        <action>REMOVE</action>
+                        <action>EXECUTE</action>
+                        <action>AUTH_CRUDE</action>
+                        <action>AUTH_CRUDE_DELEGATE</action>
+                        <action>AUTH_SEED</action>
+                    </actions>
+                </permission>
+                <permission>
+                    <target>
+                        <type>com.icw.ehf.document</type>
+                        <role>*</role>
+                        <context>*</context>
+                        <identifier>*</identifier>
+                    </target>
+                    <actions>
+                        <action>CREATE</action>
+                        <action>READ</action>
+                        <action>UPDATE</action>
+                        <action>DELETE</action>
+                        <action>EXECUTE</action>
+                        <action>AUTH_CRUDE</action>
+                        <action>AUTH_CRUDE_DELEGATE</action>
+                        <action>AUTH_SEED</action>
+                    </actions>
+                </permission>
+                
+                <permission>
+                    <target>
+                        <type>com.icw.ehf.composition.domain.Object</type>
+                        <role>*</role>
+                        <context>*</context>
+                        <identifier>*</identifier>
+                    </target>
+                    <actions>
+                        <action>CREATE</action>
+                        <action>READ</action>
+                        <action>UPDATE</action>
+                        <action>DELETE</action>
+                        <action>EXECUTE</action>
+                        <action>AUTH_CRUDE</action>
+                        <action>AUTH_CRUDE_DELEGATE</action>
+                        <action>AUTH_SEED</action>
+                    </actions>
+                </permission>
+
+                <permission>
+                    <target>
+                        <type>com.icw.ehf.entity.domain.Object</type>
+                        <role>*</role>
+                        <context>*</context>
+                        <identifier>*</identifier>
+                    </target>
+                    <actions>
+                        <action>CREATE</action>
+                        <action>READ</action>
+                        <action>UPDATE</action>
+                        <action>DELETE</action>
+                        <action>EXECUTE</action>
+                        <action>AUTH_CRUDE</action>
+                        <action>AUTH_CRUDE_DELEGATE</action>
+                        <action>AUTH_SEED</action>
+                    </actions>
+                </permission>
+            </profile>
+            <category>FUNCT</category>
+            <name>OWN-CORE</name>
+        </namedProfile>
+
+        <!-- 
+            Profile EMERGENCY
+        -->
+        <namedProfile>
+            <profile>
+                
+				<permission>
+                    <target>
+                        <type>com.icw.ehf.document.domain.Object</type>
+                        <role>*</role>
+                        <context>*</context>
+                        <identifier>*</identifier>
+                    </target>
+                    <actions>
+                        <action>READ</action>
+                    </actions>
+                </permission>
+
+				<!-- eds -->
+				<permission>
+                    <target>
+                        <type>com.icw.ehf.document.domain.Document-2.16.840.1.113883.3.37.1.9.10.1/1.0.0/3.12</type>
+                        <role>*</role>
+                        <context>*</context>
+                        <identifier>*</identifier>
+                    </target>
+                    <actions>
+                        <action>READ</action>
+                    </actions>
+                </permission>
+
+				<!-- style sheets -->
+                <permission>
+                    <target>
+                        <type>com.icw.ehf.document.domain.Document-2.16.840.1.113883.3.37.1.9.10.1/1.0.0/99.1</type>
+                        <role>*</role>
+                        <context>*</context>
+                        <identifier>*</identifier>
+                    </target>
+                    <actions>
+                        <action>READ</action>
+                    </actions>
+                </permission>
+                                
+                <!-- permissions for obervations -->
+                <permission>
+                    <target>
+                        <type>com.icw.ehf.record.medical.domain.Observation-2.16.840.1.113883.3.37.1.9.11.9/1.0.0/bloodgroup</type>
+                        <role>*</role>
+                        <context>*</context>
+                        <identifier>*</identifier>
+                    </target>
+                    <actions>
+                        <action>CREATE</action>
+                        <action>READ</action>
+                        <action>UPDATE</action>
+                        <action>DELETE</action>
+                    </actions>
+                </permission>
+                 
+                <permission>
+                    <target>
+                        <type>com.icw.ehf.record.medical.domain.Participant</type>
+                        <role>*</role>
+                        <context>com.icw.ehf.record.medical.domain.Observation</context>
+                        <identifier>*</identifier>
+                    </target>
+                    <actions>
+                        <action>CREATE</action>
+                        <action>READ</action>
+                        <action>UPDATE</action>
+                        <action>DELETE</action>
+                    </actions>
+                </permission>	
+                <permission>
+                    <target>
+                        <type>com.icw.ehf.entity.domain.Object</type>
+                        <role>*</role>
+                        <context>*</context>
+                        <identifier>*</identifier>
+                    </target>
+                    <actions>
+                        <action>CREATE</action>
+                        <action>READ</action>
+                        <action>UPDATE</action>
+                        <action>DELETE</action>
+                    </actions>
+                </permission>				
+                 
+            </profile>
+            <category>FUNCT</category>
+            <name>EMERGENCY</name>
+        </namedProfile>
+
+    </namedProfiles>
+</authorization>

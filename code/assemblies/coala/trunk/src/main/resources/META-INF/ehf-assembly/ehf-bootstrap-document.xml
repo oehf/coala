@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--                                         -->
+<!-- ICW eHF Standard Configuration          -->
+<!-- Created by the ICW eHF Project Template -->
+<!--                                         -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+    <bean class="com.icw.ehf.commons.process.executor.ImportProcessExecutor" 
+        lazy-init="false" init-method="process">
+
+        <property name="resourceLocation" value="classpath:/META-INF/ehf-document/bootstrap" />
+        <property name="resourceLoader">
+            <bean class="com.icw.ehf.commons.process.resource.DefaultResourceLoader">
+                <property name="subPattern" value="**/*dat,**/*xml" />
+            </bean>
+        </property>
+        <property name="importProcessor" ref="documentProcessor" />
+    </bean>
+    
+</beans>

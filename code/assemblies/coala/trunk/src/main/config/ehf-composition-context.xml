@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--                                         -->
+<!-- ICW eHF Standard Configuration          -->
+<!-- Created by the ICW eHF Project Template -->
+<!--                                         -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ehf="http://www.intercomponentware.com/schema/ehf-commons"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.intercomponentware.com/schema/ehf-commons http://www.intercomponentware.com/schema/ehf-commons/ehf-commons.xsd">
+
+	<!-- ======================================================================================= -->
+	<!-- Mapping from EDS container types (codes) to the central reference provider.			 -->
+	<!-- This map gets injected into the Composition Module Service.						     -->
+	<!-- ======================================================================================= -->
+	
+	<bean id="containerCodeToReferenceProviderMap"
+		class="org.springframework.beans.factory.config.MapFactoryBean">
+		<property name="sourceMap">
+			<map>
+				<entry key="EDS|2.16.840.1.113883.3.37.3.9.9.2|1.0.0" value-ref="referenceProvider"/>
+			</map>
+		</property>
+	</bean>
+	
+	<ehf:definition-extension target-module-id="compositionModule"
+		target-bean-name="compositionModuleServiceTarget">
+		<ehf:property name="containerCodeToReferenceProviderMap" ref="containerCodeToReferenceProviderMap" />
+	</ehf:definition-extension>
+	
+	<!-- ======================================================================================= -->
+	<!-- Central reference provider configuration.											     -->
+	<!-- Aggregates all contributed reference provider implementations.	    					 -->
+	<!-- ======================================================================================= -->
+	
+	<bean id="referenceProvider" class="com.icw.ehf.composition.impl.provider.CompositeReferenceProvider">
+		<property name="referenceProviderMap">
+			<map>
+				<entry key="com.icw.ehf.composition.impl.query.EhfDtoReferenceQuery">
+					<list>
+						<ref bean="recordReferenceHandler" />
+					</list>
+				</entry>
+				<entry key="com.icw.ehf.document.reference.query.DocumentDtoReferenceQuery">
+					<list>
+						<ref bean="documentReferenceHandler"/>
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<!-- ======================================================================================= -->
+	<!-- Central reference resolver configuration.											     -->
+	<!-- This reference resolver gets injected into the Composition Module Service DTO Adapter.  -->
+	<!-- ======================================================================================= -->
+	
+	<bean id="referenceResolver" class="com.icw.ehf.composition.impl.resolver.CompositeReferenceResolver">
+		<property name="referenceResolvers">
+			<set>
+				<ref bean="recordReferenceHandler"/>
+				<ref bean="documentReferenceHandler"/>
+			</set>
+		</property>
+	</bean>
+	
+	<ehf:definition-extension target-module-id="compositionModule"
+		target-bean-name="compositionModuleService">
+		<ehf:property name="referenceResolver" ref="referenceResolver" />
+	</ehf:definition-extension>
+    
+</beans>

@@ -1,0 +1,41 @@
+The following dependencies have been excluded from the project XML:
+
+		
+		<dependency>
+			<groupId>springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>2.5.6</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-exec</groupId>
+			<artifactId>commons-exec</artifactId>
+			<version>1.0.1</version>
+			<properties>
+				<category>lib</category>
+ 			</properties>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springmodules</groupId>
+			<artifactId>spring-modules</artifactId>
+			<version>0.9</version>
+			<properties>
+				<war.bundle>true</war.bundle>
+			</properties>
+			<type>jar</type>
+		</dependency>
+		
+		<dependency>
+			<groupId>ehf</groupId>
+			<artifactId>ehf-reference-documentation-doc</artifactId>
+			<version>2.10.3</version>
+			<properties>
+				<war.bundle>false</war.bundle>
+				<ehf-artifact>documentation</ehf-artifact>
+				<ehf-documentation-path>reference</ehf-documentation-path>
+			</properties>
+			<type>jar</type>
+		</dependency>
+		
+		

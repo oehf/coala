@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--                                         -->
+<!-- ICW eHF Standard Configuration          -->
+<!-- Created by the ICW eHF Project Template -->
+<!--                                         -->
+<axis-configuration>
+	<title>eHF Web Service Catalog</title>
+
+	<namespace>@@webapi.namespace.prefix@@</namespace>
+
+	<basic-wsdd>/META-INF/basic-server-config.wsdd</basic-wsdd>
+	<service-wsdd>
+@@@axis.deploy.context.fragment@@@
+	</service-wsdd>
+	
+	<custom-handlers>
+		<![CDATA[
+@@webapi.standard.handler@@
+		]]>
+	</custom-handlers>	
+
+	<services>
+		<!-- SERVICE - TEMPLATE 
+		<service>
+			<servicePath>/v2-0-0/CodesystemWebService</servicePath>
+			<transformations>
+				<transformation>
+					<servicePathPattern>/v[1]\-[0-9]\-[0-9]/CodesystemWebService</servicePathPattern>
+					<requestTransformation>classpath:META-INF/compatibility/ehf-codesystem/request.xslt</requestTransformation>
+			  		<responseTransformation>classpath:META-INF/compatibility/ehf-codesystem/response.xslt</responseTransformation>					
+				</transformation>
+			</transformations>
+		</service>
+		
+			NOTE: for modularization purposes the configuration should be organized as fragments in the 
+				  respective modules, which are contributed to the assembly.
+		-->
+	
+@@@axis.compatibility.fragment@@@
+
+	</services>
+
+</axis-configuration>

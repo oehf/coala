@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:ehf="http://www.intercomponentware.com/schema/ehf-util"
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+						http://www.intercomponentware.com/schema/ehf-util http://www.intercomponentware.com/schema/ehf-util/ehf-util.xsd
+						http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<!-- ATNA config -->
+	<bean id="iheAuditorContext"
+	      class="org.openhealthtools.ihe.atna.auditor.context.AuditorModuleContext"
+	      factory-method="getContext" />
+	
+	<bean id="iheAuditorConfig"
+	      factory-bean="iheAuditorContext"
+	      factory-method="getConfig">
+	   <property name="auditRepositoryHost" value="icw-pxs.iap.hs-heilbronn.de" />
+	   <property name="auditRepositoryPort" value="514" />
+	   <property name="auditSourceId" value="coala-ipf-xds" />
+	   <property name="auditEnterpriseSiteId" value="iap.hs-heilbronn.de" />
+	</bean>
+
+	<!-- Default config of CamelContext -->
+	<camel:camelContext id="platformCamelContext">
+		<camel:routeBuilder ref="routeBuilder" />
+	</camel:camelContext>
+
+	<bean id="routeBuilder" depends-on="routeModelExtender"
+		class="de.hhn.mi.coala.groovy.PDQRouteBuilder">
+	</bean>
+
+	<!--  <bean id="pdqModelExtension" class="de.hhn.mi.coala.groovy.PDQModelExtension">
+	</bean>-->
+
+	<bean id="hl7codec" class="org.apache.camel.component.hl7.HL7MLLPCodec">
+		<property name="charset" value="iso-8859-1" />
+	</bean>
+
+	<!-- HAPI extensions -->
+	<bean id="hapiModelExtension"
+		class="org.openehealth.ipf.modules.hl7.extend.HapiModelExtension">
+		<!-- <property name="mappingService" ref="..." /> -->
+	</bean>
+
+	<!-- General Mapping extensions <bean id="mappingExtension" class="org.openehealth.ipf.commons.map.extend.MappingExtension"> 
+		<property name="mappingService" ref="..." /> </bean> -->
+
+	<!-- Camel DSL extensions -->
+	<bean id="hl7ModelExtension"
+		class="org.openehealth.ipf.platform.camel.hl7.extend.Hl7ModelExtension">
+	</bean>
+
+	<bean id="coreModelExtension"
+		class="org.openehealth.ipf.platform.camel.core.extend.CoreModelExtension">
+	</bean>
+
+	<bean id="routeModelExtender"
+		class="org.openehealth.ipf.platform.camel.core.extend.DefaultModelExtender">
+		<property name="routeModelExtensions">
+			<list>
+				<ref bean="coreModelExtension" />
+				<!-- <ref bean="pdqModelExtension" />-->
+				<ref bean="hl7ModelExtension" />
+				<ref bean="hapiModelExtension" />
+				<!-- <ref bean="mappingExtension" /> -->
+			</list>
+		</property>
+	</bean>
+</beans>

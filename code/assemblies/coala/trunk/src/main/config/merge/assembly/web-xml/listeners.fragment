@@ -1,0 +1,38 @@
+	<!-- Spring Context Loader -->
+	<listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+
+	<!-- Service Locator Listerner initializing the ServiceLocator -->
+	<listener>
+		<listener-class>
+            com.icw.ehf.commons.spring.ServiceLocatorInitializer
+        </listener-class>
+	</listener>
+	
+	<!-- Authorization specific Context Listeners -->
+	<listener>
+		<listener-class>
+            com.icw.ehf.authorization.web.ContextListener
+        </listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+		    com.icw.ehf.authorization.web.SessionListener
+		</listener-class>
+	</listener>
+
+	<!-- Axis related listeners -->
+	<listener>
+		<listener-class>
+            org.apache.axis.transport.http.AxisHTTPSessionListener
+        </listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+            com.icw.ehf.commons.axis.listener.SpringAxisProviderListener
+        </listener-class>
+	</listener>
+	

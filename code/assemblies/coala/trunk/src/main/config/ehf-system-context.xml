@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--                                         -->
+<!-- ICW eHF Standard Configuration          -->
+<!-- Created by the ICW eHF Project Template -->
+<!--                                         -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ehf="http://www.intercomponentware.com/schema/ehf-commons"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:ehfutil="http://www.intercomponentware.com/schema/ehf-util"
+    xmlns:security="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/util
+http://www.springframework.org/schema/util/spring-util.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.intercomponentware.com/schema/ehf-commons http://www.intercomponentware.com/schema/ehf-commons/ehf-commons.xsd
+http://www.intercomponentware.com/schema/ehf-util http://www.intercomponentware.com/schema/ehf-util/ehf-util.xsd
+http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- ================================================================ -->
+	<!--  Imports 														 -->
+	<!-- ================================================================-->
+	<import resource="classpath:/META-INF/ehf-system-localization-context.xml" />
+	<import resource="classpath:/META-INF/ehf-system-dependency-context.xml" />
+	<import resource="classpath:/META-INF/ehf-usermgnt-context.xml" />
+	<import resource="classpath:/META-INF/ehf-system-messaging-context.xml" />
+	<import resource="classpath:/META-INF/ehf-authentication-context.xml" />
+	<import resource="classpath:/META-INF/ehf-security-context.xml" />
+	<import resource="classpath:/META-INF/ehf-certificate-validation-context.xml" />
+	<import resource="classpath:/META-INF/ehf-adapter-@@adapter.context@@-context.xml" />
+	<import resource="classpath:/META-INF/ehf-errorhandling-context.xml" />
+	<import resource="classpath:/META-INF/ehf-composition-context.xml" />
+	<import resource="classpath:/META-INF/ehf-access-decision-context.xml" />
+	<import resource="classpath:/META-INF/ehf-ipf-context.xml" />
+	
+	<!-- IMPORTING COALA defined context bean stuff... :) (mwiesner) -->
+	<import resource="classpath:/META-INF/coala-system-context.xml" />
+	
+	
+	<!-- ================================================================ -->
+	<!-- Data Source	-->
+	<!-- (see ehf-datasource-@@connection.context@@-context.xml) -->
+	<!-- ================================================================ -->
+
+    <!-- ================================================================ -->
+	<!-- Audit Interceptor	-->
+	<!-- ================================================================ -->
+	<bean id="auditInterceptor"
+		class="com.icw.ehf.audit.AuditInterceptor">
+	</bean>
+
+	<!-- ================================================================ -->
+	<!--  Module Dependencies Hibernate Configuration                     -->
+	<!-- ================================================================ -->
+	<bean id="sessionFactory"
+		class="com.icw.ehf.commons.spring.LocalSessionFactoryBean">
+		
+		<!-- NOTE-KKL: in the future we want to get rid of all
+		       hibernate interceptors. Instead the object manager
+		       listener infrastructure should be used. 
+		       The remaining listeners are completely dedicated to 
+		       the ehf-usermanagement only. -->
+		<property name="interceptors">
+			<list>
+				<ref bean="auditInterceptor" />
+				<ref bean="securityInterceptor" />
+			</list>
+		</property>
+		<property name="configLocations">
+			<list>
+				@@@hibernate.sessionFactory.cfg.fragment@@@
+			</list>
+		</property>
+
+        <property name="configurationClass"
+            value="com.icw.ehf.commons.hibernate.AnnotationConfiguration"/>
+            
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">@@connection.dialect@@</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>
+				<prop key="hibernate.jdbc.batch_size">@@connection.jdbc.batch.size@@</prop>
+				<prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.ehf.schema.prefix">@@connection.schema.prefix@@</prop>
+                <prop key="hibernate.ehf.schema.suffix">@@connection.schema.suffix@@</prop>                
+			</props>
+		</property>
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="eventListeners">
+			<map>
+				<entry key="post-load">
+					<list>
+						@@@hibernate.sessionFactory.postLoadEventListeners.fragment@@@
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="hibernateTemplate"
+		class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="flushModeName" value="FLUSH_COMMIT" />
+	</bean>
+
+	<!-- ================================================================ -->
+	<!-- Enable Auto-Proxy for Transactional Services -->
+	<!-- ================================================================ -->
+    <ehfutil:transactional transaction-manager="transactionManager" listener-ref="auditTransactionEventListener"/>
+    <bean id="auditTransactionEventListener" class="com.icw.ehf.commons.audit.listener.AuditTransactionEventListener">
+        <property name="messageSender" ref="eventMessageSender" />
+    </bean>
+
+	<!-- ================================================================ -->
+	<!-- Product Instance Identifier -->
+	<!-- ================================================================ -->
+	<bean id="productInstanceIdentifier" class="com.icw.ehf.commons.product.ProductInstanceIdentifierImpl">
+		<property name="rootPrefix" value="@@product.instanceindentifier.root.prefix@@" />
+	</bean>
+
+	<bean name="documentTypeConfiguration"
+		class="com.icw.ehf.document.service.util.DocumentTypeConfigurationImpl" />
+	<bean name="mimeTypeConfiguration"
+		class="com.icw.ehf.document.service.util.MimeTypeConfigurationImpl" />
+
+	<!-- ================================================================ -->
+	<!-- Mocks -->
+	<!-- ================================================================ -->
+	<bean id="contractRelevanceService" class="com.icw.ehf.commons.contract.impl.ContractRelevanceServiceMock" />
+	<bean id="unitConversionService" class="com.icw.ehf.record.medical.service.util.UnitConversionServiceImpl" />
+
+	<!-- ================================================================ -->
+	<!--		Extensions	                                              -->
+	<!-- ================================================================ -->
+
+	<!-- record-medical extension -->
+	<bean id="recordMedicalCustomPhrMetaDataEnhancer"
+		class="com.icw.ehf.commons.metadata.enhancer.CustomMetaDataEnhancer">
+		<constructor-arg value="phr" />
+	</bean>
+
+	<ehf:instance-extension target-module-id="recordModule"
+		target-bean-name="recordMedicalEnhancedMetaDataProvider"
+		class="com.icw.ehf.commons.spring.context.extension.MetaDataEnhancerExtension">
+		<ehf:extension-property name="enhancer" ref="recordMedicalCustomPhrMetaDataEnhancer" />
+	</ehf:instance-extension>
+
+	<!-- record-admin extension -->
+	<bean id="recordAdminCustomPhrMetaDataEnhancer"
+		class="com.icw.ehf.commons.metadata.enhancer.CustomMetaDataEnhancer">
+		<constructor-arg value="phr" />
+	</bean>
+
+	<ehf:instance-extension target-module-id="recordModule"
+		target-bean-name="recordAdminEnhancedMetaDataProvider"
+		class="com.icw.ehf.commons.spring.context.extension.MetaDataEnhancerExtension">
+		<ehf:extension-property name="enhancer" ref="recordAdminCustomPhrMetaDataEnhancer" />
+	</ehf:instance-extension>
+
+	<!-- entity extension -->
+	<bean id="entityMergingMetaDataEnhancer"
+        class="com.icw.ehf.commons.metadata.enhancer.MergingMetaDataEnhancer">
+        <constructor-arg value="dummy" />
+    </bean>
+    
+    <ehf:instance-extension target-module-id="entityModule" 
+    	target-bean-name="entityEnhancedMetaDataProvider" 
+    	class="com.icw.ehf.commons.spring.context.extension.MetaDataEnhancerExtension">
+    	<ehf:extension-property name="enhancer" ref="entityMergingMetaDataEnhancer"/>
+    </ehf:instance-extension>
+	
+	<!-- alternative using extensions -->
+	<ehf:instance-extension target-module-id="documentModule"
+		target-bean-name="documentObjectManagerFactory"
+		class="com.icw.ehf.commons.spring.context.extension.ObjectManagerUpdateListenerExtension">
+
+		<ehf:extension-property name="domainObjectClassName" value="com.icw.ehf.document.domain.DocumentContainer" />
+		<ehf:extension-property name="updateObjectEventListener" ref="recordExternalDocumentUpdateListener" />
+	</ehf:instance-extension>
+
+	<!-- usermgnt extension -->
+	<util:list id="profileAssignmentHolders">
+		<bean class="com.icw.ehf.usermgnt.security.authr.ProfileAssignmentHolder">
+			<property name="profileName" value="OWN-USR" />
+			<property name="profileCategory" value="FUNCT" />
+		</bean>
+		<bean class="com.icw.ehf.usermgnt.security.authr.ProfileAssignmentHolder">
+			<property name="profileName" value="OWN-SERVICE-PIN" />
+			<property name="profileCategory" value="FUNCT" />
+			<property name="principalSuffix" value="SERVICE-PIN" />
+		</bean>
+	</util:list>
+
+	<ehf:definition-extension target-module-id="usermgntModule" target-bean-name="abstractAuthorizationInterceptor">
+		<ehf:property name="userPermissionAssignments" ref="profileAssignmentHolders" />
+	</ehf:definition-extension>
+
+	<!-- composition document update listener -->
+	<bean id="compositionDocumentUpdateListener"
+		class="com.icw.ehf.document.objectmanager.listener.CompositionDocumentUpdateEventListener">
+		<property name="compositionModuleService" ref="compositionModuleService" />
+		<property name="compositionContainerService" ref="compositionContainerService" />
+	</bean>
+
+	<!--  composition document update extension -->
+	<ehf:instance-extension target-module-id="documentModule"
+		target-bean-name="documentObjectManagerFactory"
+		class="com.icw.ehf.commons.spring.context.extension.ObjectManagerUpdateListenerExtension">
+
+		<ehf:extension-property name="domainObjectClassName" value="com.icw.ehf.document.domain.DocumentContainer" />
+		<ehf:extension-property name="updateObjectEventListener" ref="compositionDocumentUpdateListener" />
+	</ehf:instance-extension>
+
+	<!-- ================================================================-->
+	<!--  JMX MBean for Data Source 									  -->
+	<!-- ================================================================ -->
+	<bean id="mbeanExporter1"
+		class="org.springframework.jmx.export.MBeanExporter">
+		<property name="beans">
+			<map>
+				<entry key="ehf-bean:name=dataSource"
+					value-ref="dataSource" />
+			</map>
+		</property>
+		<property name="registrationBehaviorName"
+			value="REGISTRATION_REPLACE_EXISTING" />
+
+		<property name="assembler">
+			<bean class="org.springframework.jmx.export.assembler.MethodNameBasedMBeanInfoAssembler">
+				<property name="managedMethods">
+					<!-- Restrict the exposure of the password attribute by configuring of methods to expose -->
+					<value>getConnection,getMaxConnectionAge,close,getUsername,getMaxActive,setMaxActive,setUsername,
+						getLogWriter,getLoginTimeout,setLogWriter,setLoginTimeout,getUrl,getDefaultAutoCommit,
+						setDefaultAutoCommit,getDefaultReadOnly,getDefaultTransactionIsolation,setDefaultTransactionIsolation,
+						getDefaultCatalog,setDefaultCatalog,getDriverClassName,setDriverClassName,getMaxIdle,setMaxIdle,
+						getInitialSize,setInitialSize,getMaxWait,setMaxWait,isPoolPreparedStatement,setPoolPreparedStatements,
+						getMaxOpenPreparedStatements,setMaxOpenPreparedStatements,getTestOnBorrow,setTestOnBorrow,getTestOnReturn,
+						setTestOnReturn,getTimeBetweenEvictionRunsMillis,setTimeBetweenEvictionRunsMillis,getNumTestsPerEvictionRun,
+						setNumTestsPerEvictionRun,getMinEvictableIdleTimeMillis,setMinEvictableIdleTimeMillis,getTestWhileIdle,
+						setTestWhileIdle,getNumActive,getNumIdle,setUrl,getValidationQuery,setValidationQuery,
+						isAccessToUnderlyingConnectionAllowed,setAccessToUnderlyingConnectionAllowed,getRemoveAbandoned,
+						setRemoveAbandoned,getRemoveAbandonedTimeout,setRemoveAbandonedTimeout,getLogAbandoned,setLogAbandoned,
+						addConnectionProperty,removeConnectionProperty,unwrap,isWrapperFor</value>
+				</property>
+			</bean>
+		</property>
+
+
+	</bean>
+
+	<!-- ================================================================ -->
+	<!--  Generic JMX MBean MonitorMBean								  -->
+	<!-- ================================================================ -->
+	<bean id="mbeanExporter2"
+		class="org.springframework.jmx.export.MBeanExporter">
+		<property name="assembler" ref="assembler" />
+		<property name="namingStrategy" ref="namingStrategy" />
+		<property name="autodetect" value="true" />
+	</bean>
+
+	<bean id="monitorMBean"
+		class="com.icw.ehf.monitor.MonitorMBean">
+		<property name="monitors">
+			<map>
+				<entry>
+					<key>
+						<value>mmi</value>
+					</key>
+					<ref bean="mmiMonitorService" />
+				</entry>
+				<entry>
+					<key>
+						<value>icd</value>
+					</key>
+					<ref bean="icdMonitorService" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="jmxAttributeSource"
+		class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource" />
+
+	<!-- will create management interface using annotation metadata -->
+	<bean id="assembler"
+		class="org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler">
+		<property name="attributeSource" ref="jmxAttributeSource" />
+	</bean>
+
+	<!-- will pick up the ObjectName from the annotation -->
+	<bean id="namingStrategy"
+		class="org.springframework.jmx.export.naming.MetadataNamingStrategy">
+		<property name="attributeSource" ref="jmxAttributeSource" />
+	</bean>
+
+
+	<!-- ================================================================ -->
+    <!--  Servlet Filters                                                 -->
+    <!-- ================================================================ -->
+	<bean id="requestContextFilter" class="com.icw.ehf.commons.context.web.RequestContextFilter">
+		<property name="interceptors">
+			<list>
+			</list>
+		</property>
+		<!-- Handler for any unhandled Exception -->
+		<property name="servletExceptionHandler">
+			<ref bean="servletExceptionHandler" />
+		</property>
+	</bean>
+
+	<!-- The filter that handles all unresolved Exception
+	     could happen if the requestContextFilter fails -->
+	<bean id="errorProcessingFilter" class="com.icw.ehf.commons.context.web.ErrorProcessingFilter">
+		<!-- Handler for any unhandled Exception -->
+		<property name="servletExceptionHandler">
+			<ref bean="servletExceptionHandler" />
+		</property>
+
+	</bean>
+
+	<!-- ================================================================ -->
+    <!--  Servlet Filter Mappings                                         -->
+    <!--  (Comment JGR: This is verbose and complex, though, not my idea.)-->
+    <!-- ================================================================ -->
+	<bean id="filterChain" class="org.springframework.security.web.FilterChainProxy">
+		<security:filter-chain-map path-type="ant">
+
+			<security:filter-chain pattern="/loginCertificate.jsp"
+				filters="
+					errorProcessingFilter,
+					requestContextFilter,
+	                certLoginFilter,
+	                privilegedExecutionFilter" />
+
+			<security:filter-chain pattern="/streamHandling"
+				filters="
+					errorProcessingFilter,
+					requestContextFilter,
+	                certLoginFilter,
+	                basicLoginFilter" />
+
+			<!-- Deactivated, see ehf-security-context.xml for REASONs-->
+			<!-- 				csrfGuardFilter, -->
+			<security:filter-chain pattern="/webgui/bye.xhtml"
+				filters="
+					errorProcessingFilter,
+					requestContextFilter,
+	                logoutFilter,
+	                optionalBasicLoginFilter,
+	                privilegedExecutionFilter" />
+
+			<security:filter-chain pattern="/webgui/pin/**"
+				filters="
+					errorProcessingFilter,
+					requestContextFilter,
+	                PinLoginFilter,
+	                optionalBasicLoginFilter,
+	                formLoginFilter,
+	                privilegedExecutionFilter" />
+
+			<security:filter-chain pattern="/axis"
+				filters="
+					errorProcessingFilter,
+					requestContextFilter,
+	                certLoginFilter,
+	                basicLoginFilter,
+	                privilegedExecutionFilter" />
+
+			<security:filter-chain pattern="/axis/**"
+				filters="
+					errorProcessingFilter,
+					requestContextFilter,
+	                privilegedExecutionFilter" />
+
+			<security:filter-chain pattern="/filedownload"
+				filters="
+					errorProcessingFilter,
+					requestContextFilter,
+	                certLoginFilter,
+	                basicLoginFilter,
+	                privilegedExecutionFilter" />
+
+			<security:filter-chain pattern="/filedownload/**"
+				filters="
+					errorProcessingFilter,
+					requestContextFilter,
+	                privilegedExecutionFilter" />
+
+			<security:filter-chain pattern="/fileupload"
+				filters="
+					errorProcessingFilter,
+					requestContextFilter,
+	                certLoginFilter,
+	                basicLoginFilter,
+	                privilegedExecutionFilter" />
+
+			<security:filter-chain pattern="/fileupload/**"
+				filters="
+					errorProcessingFilter,
+					requestContextFilter,
+	                privilegedExecutionFilter" />
+
+			<security:filter-chain pattern="/monitor/**"
+				filters="
+					errorProcessingFilter,
+					requestContextFilter,
+	                certLoginFilter,
+	                basicLoginFilter,
+	                privilegedExecutionFilter" />
+
+			<security:filter-chain pattern="/resource/**"
+				filters="
+					errorProcessingFilter,
+					requestContextFilter,
+				    basicLoginFilter,
+	                privilegedExecutionFilter" />
+
+			<security:filter-chain pattern="/service/**"
+				filters="
+					errorProcessingFilter,
+					requestContextFilter,
+				    basicLoginFilter,
+	                privilegedExecutionFilter" />
+
+			<security:filter-chain pattern="/services/**"
+				filters="
+					errorProcessingFilter,
+					requestContextFilter,
+	                certLoginFilter,
+	                basicLoginFilter,
+	                privilegedExecutionFilter,
+	                webServiceFilter" />
+
+			<!-- Deactivated, see ehf-security-context.xml for REASONs-->
+			<!-- 				csrfGuardFilter, -->
+			<security:filter-chain pattern="/webgui/**"
+				filters="
+					errorProcessingFilter,
+					requestContextFilter,
+	                optionalBasicLoginFilter,
+	                formLoginFilter,
+	                privilegedExecutionFilter" />
+
+			<security:filter-chain pattern="/**"
+				filters="
+					errorProcessingFilter,
+					requestContextFilter" />
+		</security:filter-chain-map>
+	</bean>
+	
+	<!--
+		This handles error processing/mapping for all
+		unhandled exceptions. Is called from RequestContextFilter and
+		ErrorProcessorFilter.
+	-->
+	<bean id="servletExceptionHandler"
+		class="com.icw.ehf.commons.context.web.DefaultServletExceptionHandlerImpl">
+		<!--
+			define Map for Exception Mapping, maps Exceptions to Http Status
+			Codes
+		-->
+		<property name="exceptionMapping">
+			<map>
+				<entry
+					key="com.icw.ehf.authentication.exceptions.UserDeactivatedException">
+					<!-- HttpServletResponse.SC_UNAUTHORIZED -->
+					<value>401</value>
+				</entry>
+				<entry
+					key="com.icw.ehf.authentication.exceptions.password.InvalidUsernamePasswordException">
+					<!-- HttpServletResponse.SC_UNAUTHORIZED -->
+					<value>401</value>
+				</entry>
+				<entry
+					key="com.icw.ehf.authentication.exceptions.password.MaxFailedLoginCountAlreadyReachedException">
+					<!-- HttpServletResponse.SC_UNAUTHORIZED -->
+					<value>401</value>
+				</entry>
+				<entry
+					key="javax.security.auth.login.CredentialException">
+					<!-- HttpServletResponse.SC_UNAUTHORIZED -->
+					<value>401</value>
+				</entry>
+				<entry
+					key="com.icw.ehf.authentication.exceptions.identifier.InvalidIdentifierException">
+					<!-- HttpServletResponse.SC_UNAUTHORIZED -->
+					<value>401</value>
+				</entry>
+				<entry
+					key="com.icw.ehf.authentication.exceptions.cert.CertificateRevokedException">
+					<!-- HttpServletResponse.SC_UNAUTHORIZED -->
+					<value>401</value>
+				</entry>
+				
+
+				<!--                               -->
+				<!-- Feel free to add more entries -->
+				<!--                               -->
+			</map>
+		</property>
+
+		<!--  pass ErrorProcessor Bean as Property -->
+		<property name="errorProcessor" ref="webserviceErrorProcessor">
+		</property>
+	</bean>
+
+	<!-- ================================================================ -->
+	<!-- Aliases -->
+	<!-- ================================================================ -->
+	<alias alias="codeResolver" name="cachedCodeResolver" />
+
+	<!-- ================================================================ -->
+	<!-- Encryption Infrastructure Beans	-->
+	<!-- ================================================================	-->
+    <!-- NOTE: this is currently a workaround, the transformation chain represents a breach of the public api
+          once this is solved this bean is obsolete -->  
+    <bean id="auditModuleAttributeModulationConfig" class="com.icw.ehf.audit.domain.ModuleAttributeModulation" factory-method="getAttributeModulation"> 
+		<property name="cryptoService" ref="cryptoService" />
+	</bean>
+
+    <!-- use a dummy crypto service -->    
+    <bean id="cryptoService" class="com.icw.ehf.commons.encryption.impl.DummyBase64CryptoService" />
+
+	<!-- Application Lifecycle Event Emitter -->
+	<bean id="applicationLifecycleEventEmitter" 
+        class="com.icw.ehf.integration.application.ApplicationLifecycleEventEmitter">
+        <property name="messageSender" ref="eventMessageSender"/>
+        <property name="postponeShutdownMillis"><value>@@context.postpone.shutdown.millis@@</value></property>
+    </bean>
+
+</beans>

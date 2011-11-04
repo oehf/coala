@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+
+<!-- -->
+<!-- ICW eHF Standard Configuration -->
+<!-- Created by the ICW eHF Project Template -->
+<!-- -->
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema">
+	<distributable />
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<!-- the ehf-system-context.xml is the central spring context entry point -->
+		<param-value>/WEB-INF/classes/META-INF/ehf-system-context.xml
+		</param-value>
+	</context-param>
+
+	<!-- context params -->
+	@@@web-xml.context.params.fragment@@@
+
+	<!-- filters -->
+	@@@web-xml.filters.fragment@@@
+
+	<!-- filter mappings -->
+	@@@web-xml.filters.mapping.fragment@@@
+
+	<!-- listeners -->
+	@@@web-xml.listeners.fragment@@@
+
+	<!-- servlets -->
+	@@@web-xml.servlets.fragment@@@
+
+	<!-- servlet mappings -->
+	@@@web-xml.servlets.mapping.fragment@@@
+
+	<mime-mapping>
+		<extension>wsdl</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>xsd</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+
+	<!-- security -->
+	@@@web-xml.security.fragment@@@
+
+	<!-- error pages -->
+	@@@web-xml.error.page.fragment@@@
+	<!-- Coala JSF-Configuration -->
+	<description>CoALA</description>
+
+	<!-- Spring Application Context Loader -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	<!-- Needed for Request Scope Beans -->
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener
+		</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>client</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.richfaces.skin</param-name>
+		<param-value>blueSky</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.richfaces.enableControlSkinning</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.richfaces.enableControlSkinningClasses</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	
+	<listener>
+		<listener-class>com.sun.faces.config.ConfigureListener
+		</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
+
+	<!-- Faces Servlet -->
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- Faces Servlet Mapping -->
+	<!-- Map these files with JSF -->
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.faces</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+
+	<!-- Welcome files -->
+	<welcome-file-list>
+		<welcome-file>login.xhtml</welcome-file>
+	</welcome-file-list>
+</web-app>

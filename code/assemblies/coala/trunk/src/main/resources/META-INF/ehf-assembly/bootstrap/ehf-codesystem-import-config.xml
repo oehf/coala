@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!--                                         -->
+<!-- ICW eHF Standard Configuration          -->
+<!-- Created by the ICW eHF Project Template -->
+<!--                                         -->
+
+<ehf-terminology-config xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xmlns='http://www.intercomponentware.com/schema/ehf-terminology-config'
+	xsi:schemaLocation='http://www.intercomponentware.com/schema/ehf-terminology-config http://www.intercomponentware.com/schema/ehf-terminology-config.xsd'
+	version='1.0.0'>
+	<catalogs>
+		<catalog
+			location='classpath:META-INF/ehf-codesystem-repository-new/ehf-codesystem-repository-catalog.xml' />
+	</catalogs>
+	<codeterms>
+		<codeterm locale='en' />
+		<codeterm locale='de' />
+	</codeterms>
+	<codesystems>
+		<codesystem oid='2.16.840.1.113883.5.90'/>
+		<codesystem oid='2.16.840.1.113883.3.37.1.9.16.1'/>
+		<codesystem oid='2.16.840.1.113883.6.8'/>
+		<codesystem oid='2.16.840.1.113883.3.37.1.9.11.38'/>
+		<codesystem oid='2.16.840.1.113883.3.37.1.9.11.9'/>
+		<codesystem oid='2.16.840.1.113883.5.4'/>
+		<codesystem oid='2.16.840.1.113883.3.37.1.9.4.3'/>
+		<codesystem oid='2.16.840.1.113883.5.21'/>
+		<codesystem oid='2.16.840.1.113883.5.14'/>
+		<codesystem oid='2.16.840.1.113883.6.10'/>
+		<codesystem oid='2.16.840.1.113883.6.99'/>
+		<codesystem oid='2.16.840.1.113883.3.37.1.9.10.1'/>
+		<codesystem oid='2.16.840.1.113883.5.2'/>
+		<codesystem oid='2.16.840.1.113883.5.1'/>
+		<codesystem oid='2.16.840.1.113883.5.1012'/>
+		<codesystem oid='1.3.6.1.4.1.1466.115.121.1.11'/>
+		<codesystem oid='2.16.840.1.113883.3.37.1.9.2.1'/>
+		<codesystem oid='2.16.840.1.113883.3.7.1.1'/>
+		<codesystem oid='2.16.840.1.113883.5.4'/>
+		<codesystem oid='2.16.840.1.113883.3.37.2.9.3.1'/>
+		<codesystem oid='2.16.840.1.113883.3.37.2.9.3.2'/>
+		<codesystem oid='2.16.840.1.113883.3.37.2.9.5.1'/>
+		<codesystem oid='2.16.840.1.113883.3.37.2.9.5.2'/>
+		<codesystem oid='2.16.840.1.113883.3.37.2.9.5.3'/>
+		<codesystem oid='2.16.840.1.113883.3.37.2.9.5.4'/>
+		<codesystem oid='2.16.840.1.113883.3.37.2.9.5.5'/>
+	</codesystems>
+	<codesets>
+		<!-- Act -->
+		<!-- used in module logic (record-medical, document) -->
+		<codeset name="EXT-GEN-ACT-PARTICIPANT-ROLE" />
+		<codeset name="ICW-GEN-ACT-SOURCE-INDICATOR" />
+
+		<!-- Medical data -->
+		<codeset name="EXT-GEN-UCUM" />
+		<codeset name="ICW-GEN-OBSERVATION-TUPEL-DE" />
+		<codeset name="ICW-GEN-OBSERVATION-CODE-DE" />
+
+		<!-- vocabulary for mandatory attributes in record-medical -->
+		<codeset name="EXT-GEN-ENCOUNTER-CODE" />
+		<codeset name="ICW-GEN-HEALTHRISK-VALUE-V3-DE" />
+
+		<!-- Document -->
+		<codeset name="EXT-GEN-DOCUMENT-CHARSET" />
+		<codeset name="EXT-GEN-DOCUMENT-STATUS" />
+		<codeset name="EXT-GEN-DOCUMENT-MIMETYPE" />
+		<codeset name="EXT-GEN-LANGUAGE" />
+		<codeset name="ICW-GEN-DOCUMENT-CODE-DE" />
+
+		<!-- Entity (Person / Organization) -->
+		<!-- vocabulary for coded attributes with code set binding -->
+		<codeset name="EXT-GEN-PERSON-MARITAL-STATUS" />
+		<codeset name="EXT-GEN-PERSON-GENDER" />
+		<codeset name="EXT-GEN-ADDRESS-USE" />
+		<codeset name="EXT-GEN-TELECOM-USE" />
+		<codeset name="EXT-GEN-ADDRESS-COUNTRY" />
+
+		<!-- Administrative data -->
+		<!-- used in module logic (record-admin) -->
+		<codeset name="ICW-GEN-CONTACT-ROLE" />
+
+		<!-- vocabulary for mandatory attributes in record-admin -->
+		<codeset name="EXT-GEN-INSURANCE-COVERED-PARTY-DE" />
+		<codeset name="EXT-GEN-INSURANCE-POLICY-DE" />
+
+		<!-- System -->
+		<!-- external references between ehf modules -->
+		<codeset name="ICW-EHF-SYSTEM-MODULE" />
+		<codeset name="ICW-EHF-SYSTEM-MODULE-CLASSIFIER" />
+
+		<!-- error codes of modules -->
+		<codeset name="ICW-EHF-ERROR-CODE-GEN" />
+		<codeset name="ICW-EHF-ERROR-CODE-USM" />
+		<codeset name="ICW-EHF-ERROR-CODE-BMD" />
+		<codeset name="ICW-EHF-ERROR-CODE-ADM" />
+		<codeset name="ICW-EHF-ERROR-CODE-DOC" />
+	</codesets>
+	<categories>
+		<!-- Act -->
+		<!-- used in module logic (record-medical, document) -->
+		<category name="C-ACT-SOURCE-INDICATOR">
+			<active codeset="ICW-GEN-ACT-SOURCE-INDICATOR" />
+		</category>
+
+		<!-- Medical data -->
+		<category name="C-PQ-UNIT-CODE">
+			<active codeset="EXT-GEN-UCUM" />
+		</category>
+
+		<category name="C-OBSERVATION-TUPEL">
+			<active codeset="ICW-GEN-OBSERVATION-TUPEL-DE" />
+		</category>
+		<category name="C-OBSERVATION-CODE">
+			<active codeset="ICW-GEN-OBSERVATION-CODE-DE" />
+		</category>
+
+		<!-- vocabulary for mandatory attributes in record-medical -->
+		<category name="C-ENCOUNTER-CODE">
+			<active codeset="EXT-GEN-ENCOUNTER-CODE" />
+		</category>
+		<category name="C-HEALTHRISK-VALUE">
+			<active codeset="ICW-GEN-HEALTHRISK-VALUE-V3-DE" />
+		</category>
+
+		<!-- code categories of coded attributes record-medical, no vocabulary 
+			assigned -->
+		<category name="C-ACT-MOOD" />
+		<category name="C-ACT-UNCERTAINTY" />
+		<category name="C-ACT-STATUS" />
+		<category name="C-ACT-CONFIDENTIALITY" />
+		<category name="C-ACT-PARTICIPANT-PROVIDER-GROUP" />
+		<category name="C-ACT-PARTICIPANT-SPECIALITY" />
+		<category name="C-ENCOUNTER-REASON" />
+		<category name="C-ENCOUNTER-PRIORITY" />
+		<category name="C-ENCOUNTER-CATEGORY" />
+		<category name="C-ENCOUNTER-CERTIFICATE-TYPE" />
+		<category name="C-OBSERVATION-VALUE" />
+		<category name="C-OBSERVATION-TARGET-SITE" />
+		<category name="C-OBSERVATION-INTERPRETATION" />
+		<category name="C-OBSERVATION-TIMING-EVENT" />
+		<category name="C-ALLERGY-SEVERITY" />
+		<category name="C-ALLERGY-VALUE" />
+		<category name="C-ALLERGY-QUALIFIER" />
+		<category name="C-DIAGNOSIS-VALUE" />
+		<category name="C-DIAGNOSIS-QUALIFIER" />
+		<category name="C-DIAGNOSIS-TARGET-SITE" />
+		<category name="C-DIAGNOSIS-CODE" />
+		<category name="C-PROCEDURE-VALUE" />
+		<category name="C-PROCEDURE-METHOD" />
+		<category name="C-MEDICATION-CODE" />
+		<category name="C-MEDICATION-MEDICATIONSTATUS" />
+		<category name="C-MEDICATION-INTAKE-STATUS" />
+		<category name="C-MEDICATION-SUPPLY-STATUS" />
+		<category name="C-MEDICATION-PACKAGE-SIZE" />
+		<category name="C-MEDICATION-PRIORITY" />
+		<category name="C-MEDICATION-ROUTE" />
+		<category name="C-VACCINATION-CLASSIFIER" />
+		<category name="C-VACCINATION-ROUTE" />
+		<category name="C-VACCINATION-CODE" />
+		<category name="C-SUBSTADM-PRODUCT-CODE" />
+		<category name="C-SUBSTADM-PRODUCT-ADMUNIT" />
+		<category name="C-SUBSTADM-PRODUCT-DRUGCATEGORY" />
+		<category name="C-SUBSTADM-PRODUCT-INGR-VALUE" />
+		<category name="C-SUBSTADM-PRODUCT-INGR-CLASSIFIER" />
+		<category name="C-SYMPTOM-VALUE" />
+		<category name="C-SYMPTOM-SEVERITY" />
+		<category name="C-SYMPTOM-TARGET-SITE" />
+		<category name="C-CUSTOM-OBJECT-CODE" />
+		<category name="C-CUSTOM-ACT-CODE" />
+
+		<!-- Document -->
+		<category name="C-DOCUMENT-MIMETYPE">
+			<active codeset="EXT-GEN-DOCUMENT-MIMETYPE" />
+		</category>
+		<category name="C-DOCUMENT-LANGUAGE">
+			<active codeset="EXT-GEN-LANGUAGE" />
+		</category>
+		<category name="C-DOCUMENT-CODE">
+			<active codeset="ICW-GEN-DOCUMENT-CODE-DE" />
+		</category>
+
+		<!-- Entity (Person / Organization) -->
+		<!-- vocabulary for coded attributes with code set binding -->
+		<category name="C-TELECOM-CODE" />
+		<category name="C-ORGANIZATION-TYPE" />
+		<category name="C-PROVIDER-GROUP" />
+		<category name="C-PROVIDER-SPECIALITY" />
+
+		<!-- Administrative data -->
+		<!-- used in module logic (record-admin) -->
+		<category name="C-CONTACT-ROLE">
+			<active codeset="ICW-GEN-CONTACT-ROLE" />
+		</category>
+
+		<!-- vocabulary for mandatory attributes in record-admin -->
+		<category name="C-INSURANCE-COVERED-PARTY">
+			<active codeset="EXT-GEN-INSURANCE-COVERED-PARTY-DE" />
+		</category>
+		<category name="C-INSURANCE-POLICY">
+			<active codeset="EXT-GEN-INSURANCE-POLICY-DE" />
+		</category>
+
+		<!-- code categories of coded attributes record-admin, no vocabulary assigned -->
+		<category name="C-CONTACT-PERS-REL-EMERGENCY" />
+
+		<!-- System -->
+		<!-- external references between ehf modules -->
+		<category name="C-SYSTEM-MODULE">
+			<active codeset="ICW-EHF-SYSTEM-MODULE" />
+		</category>
+		<category name="C-SYSTEM-MODULE-CLASSIFIER">
+			<active codeset="ICW-EHF-SYSTEM-MODULE-CLASSIFIER" />
+		</category>
+
+		<!-- error codes of modules -->
+		<category name="C-ERROR-CODE">
+			<active codeset="ICW-EHF-ERROR-CODE-GEN" />
+			<active codeset="ICW-EHF-ERROR-CODE-USM" />
+			<active codeset="ICW-EHF-ERROR-CODE-BMD" />
+			<active codeset="ICW-EHF-ERROR-CODE-ADM" />
+			<active codeset="ICW-EHF-ERROR-CODE-DOC" />
+		</category>
+
+	</categories>
+</ehf-terminology-config>
+

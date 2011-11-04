@@ -1,0 +1,20 @@
+<error-page>
+		<error-code>500</error-code>
+		<location>/error500.xhtml</location>
+	</error-page>
+	<error-page>
+		<error-code>401</error-code>
+		<location>/error401.xhtml</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/error403.xhtml</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error404.xhtml</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/errorexception.xhtml</location>
+	</error-page>
