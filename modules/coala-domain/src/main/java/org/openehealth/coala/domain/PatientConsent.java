@@ -14,11 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.domain;
+package org.openehealth.coala.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import de.hhn.mi.coala.domain.CoalaAuthor;
+import org.openehealth.coala.domain.CoalaAuthor;
 
 /**
  * This class represents a patient consent document

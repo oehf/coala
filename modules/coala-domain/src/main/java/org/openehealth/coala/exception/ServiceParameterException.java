@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.exception;
+package org.openehealth.coala.exception;
 
 /**
  * Thrown, whenever the parameters for a service function call are insufficient.

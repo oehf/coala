@@ -2,7 +2,7 @@ CoALA - Consent Acknowledgement Lookup Assistant
 ================================================
 
 CoALA is a system to create and manage patient contents based on the 
-IHE profile BPPC (Basic Patient Privacy Constents). 
+IHE profile BPPC (Basic Patient Privacy Consents). 
 The complete communication with third party systems are performed using 
 the following IHE transactions using Open eHealth Integration Platform (IPF):
 

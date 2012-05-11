@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.domain;
+package org.openehealth.coala.domain;
 
 /**
  * This Enum models the policy that the patient chose to adapt when he signed the paper. 

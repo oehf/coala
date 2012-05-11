@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.domain;
+package org.openehealth.coala.domain;
 
 import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 
-import de.hhn.mi.coala.exception.ServiceParameterException;
+import org.openehealth.coala.exception.ServiceParameterException;
 
 
 /**

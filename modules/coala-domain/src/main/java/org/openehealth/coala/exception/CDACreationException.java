@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.exception;
+package org.openehealth.coala.exception;
 
 /**
  * This exception is thrown, whenever the conversion of a consent fails irrevocably.

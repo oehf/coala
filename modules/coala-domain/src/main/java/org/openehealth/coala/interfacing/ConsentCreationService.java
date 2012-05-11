@@ -14,17 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.interfacing;
+package org.openehealth.coala.interfacing;
 
 import java.util.Date;
 
-import de.hhn.mi.coala.domain.CoalaAuthor;
-import de.hhn.mi.coala.domain.ConsentSortParameter;
-import de.hhn.mi.coala.domain.FindPatientConsentResult;
-import de.hhn.mi.coala.domain.Patient;
-import de.hhn.mi.coala.domain.PatientConsent;
-import de.hhn.mi.coala.domain.PatientConsentPolicy;
-import de.hhn.mi.coala.exception.XDSRequestFailedException;
+import org.openehealth.coala.domain.CoalaAuthor;
+import org.openehealth.coala.domain.ConsentSortParameter;
+import org.openehealth.coala.domain.FindPatientConsentResult;
+import org.openehealth.coala.domain.Patient;
+import org.openehealth.coala.domain.PatientConsent;
+import org.openehealth.coala.domain.PatientConsentPolicy;
+import org.openehealth.coala.exception.XDSRequestFailedException;
 
 /**
  * This interface models the communication between assembly and communication

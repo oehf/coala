@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala;
+package org.openehealth.coala;
 
 import static org.junit.Assert.*;
 
@@ -24,18 +24,18 @@ import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
-import de.hhn.mi.coala.domain.CoalaAuthor;
-import de.hhn.mi.coala.domain.ConsentSortParameter;
-import de.hhn.mi.coala.domain.FindPatientConsentResult;
-import de.hhn.mi.coala.domain.FindPatientQuery;
-import de.hhn.mi.coala.domain.FindPatientResult;
-import de.hhn.mi.coala.domain.Gender;
-import de.hhn.mi.coala.domain.Patient;
-import de.hhn.mi.coala.domain.PatientAddress;
-import de.hhn.mi.coala.domain.PatientConsent;
-import de.hhn.mi.coala.domain.PatientConsentPolicy;
-import de.hhn.mi.coala.domain.PatientSortParameter;
-import de.hhn.mi.coala.exception.ServiceParameterException;
+import org.openehealth.coala.domain.CoalaAuthor;
+import org.openehealth.coala.domain.ConsentSortParameter;
+import org.openehealth.coala.domain.FindPatientConsentResult;
+import org.openehealth.coala.domain.FindPatientQuery;
+import org.openehealth.coala.domain.FindPatientResult;
+import org.openehealth.coala.domain.Gender;
+import org.openehealth.coala.domain.Patient;
+import org.openehealth.coala.domain.PatientAddress;
+import org.openehealth.coala.domain.PatientConsent;
+import org.openehealth.coala.domain.PatientConsentPolicy;
+import org.openehealth.coala.domain.PatientSortParameter;
+import org.openehealth.coala.exception.ServiceParameterException;
 
 /**
  * Unit test for various coala domain classes.‚

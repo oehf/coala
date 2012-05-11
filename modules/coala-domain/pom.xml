@@ -2,13 +2,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.hhn.mi.coala</groupId>
+	<groupId>org.openehealth.coala</groupId>
 	<artifactId>coala-domain</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>coala-domain</name>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/oehf/coala</url>
 	<developers>
 		<developer>
 			<id>kmaerz</id>
@@ -33,7 +33,7 @@
 	</developers>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<copyright.year>2011</copyright.year>
+		<copyright.year>2012</copyright.year>
 	</properties>
 	<repositories>
 		<repository>

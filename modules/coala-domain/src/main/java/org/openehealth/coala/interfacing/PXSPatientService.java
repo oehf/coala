@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.interfacing;
+package org.openehealth.coala.interfacing;
 
-import de.hhn.mi.coala.domain.FindPatientQuery;
-import de.hhn.mi.coala.domain.FindPatientResult;
-import de.hhn.mi.coala.domain.Patient;
-import de.hhn.mi.coala.domain.PatientSortParameter;
-import de.hhn.mi.coala.exception.PDQRequestFailedException;
+import org.openehealth.coala.domain.FindPatientQuery;
+import org.openehealth.coala.domain.FindPatientResult;
+import org.openehealth.coala.domain.Patient;
+import org.openehealth.coala.domain.PatientSortParameter;
+import org.openehealth.coala.exception.PDQRequestFailedException;
 
 
 /**

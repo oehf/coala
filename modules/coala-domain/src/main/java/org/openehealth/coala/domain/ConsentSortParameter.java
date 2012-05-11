@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.domain;
+package org.openehealth.coala.domain;
 
 /**
  * This simple enum is used to identify by which parameters a search should be sorted by.
