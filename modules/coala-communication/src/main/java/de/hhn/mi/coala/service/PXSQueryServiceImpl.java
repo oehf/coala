@@ -32,6 +32,7 @@ import de.hhn.mi.coala.builder.DocumentEntryBuilder;
 import de.hhn.mi.coala.communication.PdqMessageBuilder;
 import de.hhn.mi.coala.converter.ConsentConverter;
 import de.hhn.mi.coala.converter.PdqHL7Converter;
+import de.hhn.mi.coala.converter.PdqHL7ConverterImpl;
 import de.hhn.mi.coala.domain.CoalaAuthor;
 import de.hhn.mi.coala.domain.ConsentSortParameter;
 import de.hhn.mi.coala.domain.FindPatientConsentResult;
@@ -56,6 +57,9 @@ import de.hhn.mi.coala.xds.XDSGate;
  * AG's PXS communication server.
  * 
  * @author kmaerz, mwiesner
+ * 
+ * @FIXME This class apparently does more than one thing. Its responsibility is not clearly defined.
+ * 		Code smell! A refactoring is needed here.
  */
 public class PXSQueryServiceImpl implements PXSPatientService,
 		ConsentCreationService {
@@ -90,6 +94,10 @@ public class PXSQueryServiceImpl implements PXSPatientService,
 		this.consentConverter = consentConverter;
 	}
 
+	public void setPdqConverter(PdqHL7Converter pdqConverter) {
+		this.pdqConverter = pdqConverter;
+	}
+
 	/*
 	 * This default constructor is needed for Spring bean instantiation don't
 	 * remove me!
@@ -99,7 +107,7 @@ public class PXSQueryServiceImpl implements PXSPatientService,
 		stati.add(AvailabilityStatus.APPROVED);
 		stati.add(AvailabilityStatus.SUBMITTED);
 		stati.add(AvailabilityStatus.DEPRECATED);
-		pdqConverter = new PdqHL7Converter();
+		pdqConverter = new PdqHL7ConverterImpl();
 	
 	}
 	
@@ -128,6 +136,7 @@ public class PXSQueryServiceImpl implements PXSPatientService,
 		return result;
 
 	}
+
 
 	/*
 	 * (non-Javadoc)

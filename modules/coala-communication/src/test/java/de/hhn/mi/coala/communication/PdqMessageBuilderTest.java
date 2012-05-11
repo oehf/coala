@@ -27,7 +27,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * Unit test for {@link PdqMessageBuilder}.
+ * Unit test for {@link PdqMessageBuilderImpl}.
  * 
  * @author ckarmen
  */
@@ -51,7 +51,7 @@ public class PdqMessageBuilderTest {
 
 	/**
 	 * Test if PdqRequest (HL7 message) contains only expected PID values.
-	 * {@link PdqMessageBuilder}.
+	 * {@link PdqMessageBuilderImpl}.
 	 */
 	@Test
 	public void testPdqMessage() {

@@ -18,7 +18,6 @@ package org.openehealth.coala.interfacing;
 
 import org.openehealth.coala.domain.FindPatientQuery;
 import org.openehealth.coala.domain.FindPatientResult;
-import org.openehealth.coala.domain.Patient;
 import org.openehealth.coala.domain.PatientSortParameter;
 import org.openehealth.coala.exception.PDQRequestFailedException;
 
@@ -29,11 +28,11 @@ import org.openehealth.coala.exception.PDQRequestFailedException;
  * @author kmaerz
  * 
  */
-public interface PXSPatientService {
+public interface PatientService {
 
 	/**
-	 * Returns a list of results from the MPI with {@link Patient} instances
-	 * that match the query.
+	 * Service that allows to query for patients with the help of a Query and 
+	 * allows sorting.
 	 * 
 	 * @param query
 	 *            the {@link FindPatientQuery} to send to the MPI

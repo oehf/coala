@@ -22,6 +22,7 @@
 		<property name="pdqMessageBuilder" ref="pdqMessageBuilder"/>
 		<property name="consentConverter" ref="consentConverter"/>
 		<property name="documentEntryBuilder" ref="documentEntryBuilder"/>
+		<property name="pdqConverter" ref="pdqConverter"/>
 	</bean>
 	
 	<bean id="cdaService" class="de.hhn.mi.coala.service.CDATransformationServiceImpl">
@@ -33,6 +34,8 @@
 	<bean id="pdqMessageBuilder" class="de.hhn.mi.coala.communication.PdqMessageBuilder">
 		<property name="pxsDateConverter" ref="pxsDateConverter"/>
 	</bean>
+	
+	<bean id="pdqConverter" class="de.hhn.mi.coala.converter.PdqHL7Converter"/>
 	
 	<bean id="documentEntryBuilder" class="de.hhn.mi.coala.builder.DocumentEntryBuilder">
 		<property name="pxsDateConverter" ref="pxsDateConverter"/>

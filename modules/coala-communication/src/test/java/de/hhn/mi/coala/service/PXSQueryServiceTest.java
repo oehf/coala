@@ -16,6 +16,7 @@
  */
 package de.hhn.mi.coala.service;
 
+import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -27,13 +28,11 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import de.hhn.mi.coala.communication.PdqMessageBuilder;
+import de.hhn.mi.coala.converter.PdqHL7Converter;
 import de.hhn.mi.coala.domain.CoalaAuthor;
 import de.hhn.mi.coala.domain.ConsentSortParameter;
 import de.hhn.mi.coala.domain.FindPatientConsentResult;
@@ -47,6 +46,7 @@ import de.hhn.mi.coala.domain.PatientConsentPolicy;
 import de.hhn.mi.coala.domain.PatientSortParameter;
 import de.hhn.mi.coala.interfacing.ConsentCreationService;
 import de.hhn.mi.coala.interfacing.PXSPatientService;
+import de.hhn.mi.coala.pdq.PDQGate;
 import de.hhn.mi.coala.util.PXSDateConverter;
 
 /**
@@ -54,28 +54,31 @@ import de.hhn.mi.coala.util.PXSDateConverter;
  * 
  * @author mwiesner, kmaerz, hhein
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/META-INF/coala-communication-test-context.xml" })
 public class PXSQueryServiceTest {
 
-	private static final Logger LOG = org.slf4j.LoggerFactory
-			.getLogger(PXSQueryServiceTest.class);
-
-	@Autowired
 	private PXSPatientService pXSQueryService;
-	@Autowired
 	private ConsentCreationService consentCreationService;
-	@Autowired
 	private PXSDateConverter pxsDateConverter;
 
 	private static final String PXS_ASSINGNING_AUTHORITY_OID = "2.16.840.1.113883.3.37.4.1.1.2.2.1";
+	private PDQGate pdqGate;
+	private PdqMessageBuilder pdqMessageBuilder;
+	private PdqHL7Converter pdqHL7Converter;
 	
-	
-	@Test
-	public void testSpringContext() {
-		assertNotNull(pXSQueryService);
+	@Before
+	public void setUp() {
+		PXSQueryServiceImpl pXSQueryServiceImpl = new PXSQueryServiceImpl();
+		pdqMessageBuilder = createMock(PdqMessageBuilder.class);
+		pdqGate = createMock(PDQGate.class);
+		pdqHL7Converter = createMock(PdqHL7Converter.class);
+		pXSQueryServiceImpl.setPdqMessageBuilder(pdqMessageBuilder );
+		pXSQueryServiceImpl.setPdqGate(pdqGate );
+		pXSQueryServiceImpl.setPdqConverter(pdqHL7Converter);
+		pXSQueryService = pXSQueryServiceImpl;
+		
+		
 	}
-
+	
 	/**
 	 * Test if a FindPatientResult returned correctly via a Lastname
 	 * {@link FindPatientQuery}.
@@ -83,6 +86,15 @@ public class PXSQueryServiceTest {
 
 	@Test
 	public void testFindPatientsByLastnameCorrect() {
+		
+		String hl7StringContainingQueryParameter = "HL7StringContainingQueryParameter";
+		String hl7StringContainingResult = "HL7StringContainingResult";
+		expect(pdqMessageBuilder.buildPdqRequest("", "", "Mue*", null)).andReturn(hl7StringContainingQueryParameter);
+		expect(pdqGate.requestPatients(hl7StringContainingQueryParameter)).andReturn(hl7StringContainingResult);
+		ArrayList<Patient> patientList = createPatientList();
+		expect(pdqHL7Converter.convertPdqToPatients(hl7StringContainingResult)).andReturn(patientList);
+		
+		replay(pdqGate, pdqMessageBuilder, pdqHL7Converter);
 
 		List<Patient> patientsResList = new ArrayList<Patient>();
 		FindPatientQuery findPatientQuery = new FindPatientQuery("", "",
@@ -99,6 +111,15 @@ public class PXSQueryServiceTest {
 				assertEquals("Hans", p.getGivenName());
 			}
 		}
+		
+		
+	}
+
+	private ArrayList<Patient> createPatientList() {
+		ArrayList<Patient> patientList = new ArrayList<Patient>();
+		Patient patient = new Patient("testPatientID", "testPatientIDAssigningAuthorityUniversalId", "Hans", "Mueller", new Date(), Gender.UNKNOWN, new PatientAddress());
+		patientList.add(patient);
+		return patientList;
 	}
 
 	/**
