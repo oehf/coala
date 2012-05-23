@@ -23,9 +23,9 @@ import org.openehealth.ipf.commons.ihe.xds.core.metadata.Document;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.DocumentEntry;
 import org.openehealth.ipf.commons.ihe.xds.core.responses.RetrievedDocument;
 
-import de.hhn.mi.coala.exception.XDSConfigurationErrorException;
-import de.hhn.mi.coala.exception.XDSConsentConversionException;
-import de.hhn.mi.coala.exception.XDSRequestFailedException;
+import org.openehealth.coala.exception.XDSConfigurationErrorException;
+import org.openehealth.coala.exception.XDSConsentConversionException;
+import org.openehealth.coala.exception.XDSRequestFailedException;
 
 /**
  * This interface provides basic operations to handle XDS {@link Document} and

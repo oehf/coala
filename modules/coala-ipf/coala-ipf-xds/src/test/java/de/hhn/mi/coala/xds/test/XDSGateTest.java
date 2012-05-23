@@ -23,8 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openehealth.coala.exception.XDSRequestFailedException;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.AvailabilityStatus;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.DocumentEntry;
 import org.openehealth.ipf.commons.ihe.xds.core.responses.RetrievedDocument;
@@ -32,7 +34,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.hhn.mi.coala.exception.XDSRequestFailedException;
 import de.hhn.mi.coala.xds.XDSGate;
 import de.hhn.mi.coala.xds.XDSGateImpl;
 
@@ -44,6 +45,7 @@ import de.hhn.mi.coala.xds.XDSGateImpl;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/coala-xds-test-context.xml" })
+@Ignore
 public class XDSGateTest {
 
 //	private static final Logger LOG = org.slf4j.LoggerFactory

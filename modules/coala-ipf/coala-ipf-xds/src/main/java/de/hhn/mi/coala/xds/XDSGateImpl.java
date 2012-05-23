@@ -24,10 +24,10 @@ import org.openehealth.ipf.commons.ihe.xds.core.metadata.DocumentEntry;
 import org.openehealth.ipf.commons.ihe.xds.core.responses.RetrievedDocument;
 import org.slf4j.Logger;
 
-import de.hhn.mi.coala.domain.ConsentSortParameter;
-import de.hhn.mi.coala.exception.XDSConfigurationErrorException;
-import de.hhn.mi.coala.exception.XDSConsentConversionException;
-import de.hhn.mi.coala.exception.XDSRequestFailedException;
+import org.openehealth.coala.domain.ConsentSortParameter;
+import org.openehealth.coala.exception.XDSConfigurationErrorException;
+import org.openehealth.coala.exception.XDSConsentConversionException;
+import org.openehealth.coala.exception.XDSRequestFailedException;
 
 /**
  * This class implements {@link XDSGate} to provide the communication to a XDS

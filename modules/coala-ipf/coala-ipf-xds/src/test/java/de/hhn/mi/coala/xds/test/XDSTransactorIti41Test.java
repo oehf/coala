@@ -34,7 +34,10 @@ import java.util.MissingResourceException;
 import javax.activation.DataHandler;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.openehealth.coala.exception.XDSConfigurationErrorException;
+import org.openehealth.coala.exception.XDSRequestFailedException;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.AssigningAuthority;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.Author;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.AvailabilityStatus;
@@ -48,8 +51,6 @@ import org.openehealth.ipf.commons.ihe.xds.core.metadata.Organization;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.Person;
 import org.slf4j.Logger;
 
-import de.hhn.mi.coala.exception.XDSConfigurationErrorException;
-import de.hhn.mi.coala.exception.XDSRequestFailedException;
 import de.hhn.mi.coala.util.CdaDataSourceImpl;
 import de.hhn.mi.coala.xds.XDSTransactorImpl;
 
@@ -66,6 +67,7 @@ import de.hhn.mi.coala.xds.XDSTransactorImpl;
  * @author wkais, siekmann, mwiesner
  * 
  */
+@Ignore
 public class XDSTransactorIti41Test extends XDSBaseTest {
 	private static final Logger LOG = org.slf4j.LoggerFactory
 			.getLogger(XDSTransactorIti43Test.class);

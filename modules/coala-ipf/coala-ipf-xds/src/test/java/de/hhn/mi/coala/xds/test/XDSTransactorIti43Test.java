@@ -24,12 +24,12 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openehealth.coala.exception.XDSRequestFailedException;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.AvailabilityStatus;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.DocumentEntry;
 import org.openehealth.ipf.commons.ihe.xds.core.responses.RetrievedDocument;
 import org.slf4j.Logger;
 
-import de.hhn.mi.coala.exception.XDSRequestFailedException;
 import de.hhn.mi.coala.xds.XDSTransactorImpl;
 
 /**

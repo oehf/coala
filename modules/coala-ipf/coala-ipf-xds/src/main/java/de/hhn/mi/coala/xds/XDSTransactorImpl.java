@@ -53,9 +53,9 @@ import org.openehealth.ipf.commons.ihe.xds.core.stub.ebrs30.rs.RegistryResponseT
 import org.openehealth.ipf.platform.camel.ihe.xds.XdsCamelValidators;
 import org.slf4j.Logger;
 
-import de.hhn.mi.coala.exception.XDSConfigurationErrorException;
-import de.hhn.mi.coala.exception.XDSConsentConversionException;
-import de.hhn.mi.coala.exception.XDSRequestFailedException;
+import org.openehealth.coala.exception.XDSConfigurationErrorException;
+import org.openehealth.coala.exception.XDSConsentConversionException;
+import org.openehealth.coala.exception.XDSRequestFailedException;
 import de.hhn.mi.coala.util.PXSDateConverter;
 
 /**

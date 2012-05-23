@@ -24,12 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.openehealth.coala.exception.XDSRequestFailedException;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.AvailabilityStatus;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.DocumentEntry;
 import org.slf4j.Logger;
 
-import de.hhn.mi.coala.exception.XDSRequestFailedException;
 import de.hhn.mi.coala.xds.XDSTransactorImpl;
 
 /**
@@ -41,6 +42,7 @@ import de.hhn.mi.coala.xds.XDSTransactorImpl;
  * @author siekmann, mwiesner
  * 
  */
+@Ignore
 public class XDSTransactorIti18Test extends XDSBaseTest {
 
 	private static final Logger LOG = org.slf4j.LoggerFactory
