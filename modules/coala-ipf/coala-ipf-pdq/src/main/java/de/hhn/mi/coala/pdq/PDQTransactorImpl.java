@@ -20,11 +20,10 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultExchange;
+import org.openehealth.coala.exception.PDQConfigurationErrorException;
+import org.openehealth.coala.exception.PDQRequestFailedException;
 import org.openehealth.ipf.platform.camel.ihe.pixpdq.PixPdqCamelValidators;
 import org.slf4j.Logger;
-
-import de.hhn.mi.coala.exception.PDQConfigurationErrorException;
-import de.hhn.mi.coala.exception.PDQRequestFailedException;
 
 /**
  * This class provides the basic method to communicate with the PDQ endpoint

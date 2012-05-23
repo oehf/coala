@@ -16,8 +16,8 @@
  */
 package de.hhn.mi.coala.pdq;
 
+import org.openehealth.coala.exception.PDQRequestFailedException;
 import org.slf4j.Logger;
-import de.hhn.mi.coala.exception.PDQRequestFailedException;
 
 /**
  * This class functions as a gate to the communication with the PDQ endpoint.

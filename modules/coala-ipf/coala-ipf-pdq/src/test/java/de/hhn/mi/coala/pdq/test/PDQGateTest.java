@@ -16,15 +16,17 @@
  */
 package de.hhn.mi.coala.pdq.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openehealth.coala.exception.PDQRequestFailedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.hhn.mi.coala.exception.PDQRequestFailedException;
 import de.hhn.mi.coala.pdq.PDQGate;
 
 /**
@@ -32,6 +34,7 @@ import de.hhn.mi.coala.pdq.PDQGate;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/coala-pdq-test-context.xml" })
+@Ignore
 public class PDQGateTest implements PDQTestConstants {
 
 	@Autowired

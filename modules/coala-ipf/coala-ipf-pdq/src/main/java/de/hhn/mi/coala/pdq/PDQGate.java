@@ -16,7 +16,7 @@
  */
 package de.hhn.mi.coala.pdq;
 
-import de.hhn.mi.coala.exception.PDQRequestFailedException;
+import org.openehealth.coala.exception.PDQRequestFailedException;
 
 /**
  * This interface functions as a gate to the communication with the PDQ endpoint.
