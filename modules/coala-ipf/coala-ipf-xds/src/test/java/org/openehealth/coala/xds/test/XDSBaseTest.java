@@ -14,17 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.xds.test;
+package org.openehealth.coala.xds.test;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.openehealth.coala.xds.XDSConfigurationImpl;
+import org.openehealth.coala.xds.XDSTransactor;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.AssigningAuthority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import de.hhn.mi.coala.xds.XDSConfigurationImpl;
-import de.hhn.mi.coala.xds.XDSTransactor;
 
 /**
  * This class provides the basic initialization of the XDS endpoints ITI-18,

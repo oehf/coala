@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.xds;
+package org.openehealth.coala.xds;
 
 /**
  * This class is the base class to encapsulates all configuration details

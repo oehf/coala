@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.xds.test;
+package org.openehealth.coala.xds.test;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -38,6 +38,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.openehealth.coala.exception.XDSConfigurationErrorException;
 import org.openehealth.coala.exception.XDSRequestFailedException;
+import org.openehealth.coala.util.CdaDataSourceImpl;
+import org.openehealth.coala.xds.XDSTransactorImpl;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.AssigningAuthority;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.Author;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.AvailabilityStatus;
@@ -50,9 +52,6 @@ import org.openehealth.ipf.commons.ihe.xds.core.metadata.Name;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.Organization;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.Person;
 import org.slf4j.Logger;
-
-import de.hhn.mi.coala.util.CdaDataSourceImpl;
-import de.hhn.mi.coala.xds.XDSTransactorImpl;
 
 /**
  * Class which tests the {@link XDSTransactorImpl} for valid ITI-41 requests.

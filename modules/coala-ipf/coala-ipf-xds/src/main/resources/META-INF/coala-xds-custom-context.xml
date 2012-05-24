@@ -16,7 +16,7 @@
     </bean>	
     
     <!-- XDS configuration needed to instantiate xdsTransactor and related xdsGate -->
-	<bean id="xdsConfiguration" class="de.hhn.mi.coala.xds.XDSConfigurationImpl">
+	<bean id="xdsConfiguration" class="org.openehealth.coala.xds.XDSConfigurationImpl">
 		<property name="xdsIti18endpoint" value="${coala.pxs.xds.iti18.endpoint}" />
 		<property name="xdsIti41endpoint" value="${coala.pxs.xds.iti41.endpoint}" />
 		<property name="xdsIti43endpoint" value="${coala.pxs.xds.iti43.endpoint}" />
@@ -38,15 +38,15 @@
 		<property name="consentDocumentTypeCodeSchemename" value="${coala.consent.document.type.code.schemename}" />
 	</bean>
 	
-	<bean id="pxsDateConverter" class="de.hhn.mi.coala.util.PXSDateConverterImpl">
+	<bean id="pxsDateConverter" class="org.openehealth.coala.util.PXSDateConverterImpl">
 		<property name="xdsConfiguration" ref="xdsConfiguration"/>
 	</bean>
 
-	<bean id="xdsGate" class="de.hhn.mi.coala.xds.XDSGateImpl">
+	<bean id="xdsGate" class="org.openehealth.coala.xds.XDSGateImpl">
 		<constructor-arg ref="xdsTransactor"/>
 	</bean>
 
-	<bean id="xdsTransactor" class="de.hhn.mi.coala.xds.XDSTransactorImpl">
+	<bean id="xdsTransactor" class="org.openehealth.coala.xds.XDSTransactorImpl">
 		<property name="xdsConfiguration" ref="xdsConfiguration"/>
 		<property name="camelContext" ref="platformCamelContext"/>
 		<property name="producerTemplate" ref="template"/>

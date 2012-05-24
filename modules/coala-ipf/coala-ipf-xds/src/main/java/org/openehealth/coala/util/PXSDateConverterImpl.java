@@ -14,15 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.util;
+package org.openehealth.coala.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
-
-import de.hhn.mi.coala.xds.XDSConfigurationImpl;
+import org.openehealth.coala.xds.XDSConfigurationImpl;
 
 /**
  * This class offers conversion Methods for PXS Dates. Define the patterns used

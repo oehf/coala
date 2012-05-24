@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.xds;
+package org.openehealth.coala.xds;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,6 +28,10 @@ import org.apache.camel.Message;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.commons.lang.StringUtils;
+import org.openehealth.coala.exception.XDSConfigurationErrorException;
+import org.openehealth.coala.exception.XDSConsentConversionException;
+import org.openehealth.coala.exception.XDSRequestFailedException;
+import org.openehealth.coala.util.PXSDateConverter;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.AssigningAuthority;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.Association;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.AssociationLabel;
@@ -52,11 +56,6 @@ import org.openehealth.ipf.commons.ihe.xds.core.stub.ebrs30.rs.RegistryError;
 import org.openehealth.ipf.commons.ihe.xds.core.stub.ebrs30.rs.RegistryResponseType;
 import org.openehealth.ipf.platform.camel.ihe.xds.XdsCamelValidators;
 import org.slf4j.Logger;
-
-import org.openehealth.coala.exception.XDSConfigurationErrorException;
-import org.openehealth.coala.exception.XDSConsentConversionException;
-import org.openehealth.coala.exception.XDSRequestFailedException;
-import de.hhn.mi.coala.util.PXSDateConverter;
 
 /**
  * This class provides the basic method to communicate with the XDS endpoint. In

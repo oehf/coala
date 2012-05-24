@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.xds.test;
+package org.openehealth.coala.xds.test;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -27,15 +27,14 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openehealth.coala.exception.XDSRequestFailedException;
+import org.openehealth.coala.xds.XDSGate;
+import org.openehealth.coala.xds.XDSGateImpl;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.AvailabilityStatus;
 import org.openehealth.ipf.commons.ihe.xds.core.metadata.DocumentEntry;
 import org.openehealth.ipf.commons.ihe.xds.core.responses.RetrievedDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import de.hhn.mi.coala.xds.XDSGate;
-import de.hhn.mi.coala.xds.XDSGateImpl;
 
 /**
  * Tests the {@link XDSGateImpl} for XDS ITI18 and ITI43 functionality.

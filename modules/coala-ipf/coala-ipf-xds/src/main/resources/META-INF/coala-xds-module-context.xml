@@ -10,8 +10,8 @@
       <value>classpath:/META-INF/coala-xds-custom-context.xml</value>  
     </configLocations>  
     <export> 
-      <bean id="xdsGate" interface="de.hhn.mi.coala.xds.XDSGate"/>
-      <bean id="pxsDateConverter" interface="de.hhn.mi.coala.util.PXSDateConverter"/>
+      <bean id="xdsGate" interface="org.openehealth.coala.xds.XDSGate"/>
+      <bean id="pxsDateConverter" interface="org.openehealth.coala.util.PXSDateConverter"/>
     </export>  
     <import> 
       <ref-bean alias="platformCamelContext" interface="org.apache.camel.CamelContext"/>

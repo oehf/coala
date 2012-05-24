@@ -108,12 +108,7 @@
 
 	<!-- Default config of CamelContext -->
 	<camel:camelContext id="platformCamelContext">
-		<camel:routeBuilder ref="routeBuilder" />
 	</camel:camelContext>
-
-	<bean id="routeBuilder" depends-on="routeModelExtender"
-		class="de.hhn.mi.coala.groovy.XDSRouteBuilder">
-	</bean>
 
 	<bean id="coreModelExtension"
 		class="org.openehealth.ipf.platform.camel.core.extend.CoreModelExtension">
