@@ -11,18 +11,18 @@
     </configLocations>  
     <export> 
     	<bean id="pxsQueryService">
-    		<interface name="de.hhn.mi.coala.interfacing.PXSPatientService"/>
-    		<interface name="de.hhn.mi.coala.interfacing.ConsentCreationService"/>
+    		<interface name="org.openehealth.coala.interfacing.PXSPatientService"/>
+    		<interface name="org.openehealth.coala.interfacing.ConsentCreationService"/>
     	</bean>
-    	<bean id="cdaService" interface="de.hhn.mi.coala.interfacing.CDATransformationService"/>
+    	<bean id="cdaService" interface="org.openehealth.coala.interfacing.CDATransformationService"/>
     </export>  
     <import> 
       <ref-bean alias="platformCamelContext" interface="org.apache.camel.CamelContext"/>
       <ref-bean alias="template" interface="org.apache.camel.ProducerTemplate"/>
       <ref-bean alias="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/>
-      <ref-bean alias="pxsDateConverter" interface="de.hhn.mi.coala.util.PXSDateConverter"/>
-      <ref-bean alias="pdqGate" interface="de.hhn.mi.coala.pdq.PDQGate"/>
-	  <ref-bean alias="xdsGate" interface="de.hhn.mi.coala.xds.XDSGate"/>
+      <ref-bean alias="pxsDateConverter" interface="org.openehealth.coala.util.PXSDateConverter"/>
+      <ref-bean alias="pdqGate" interface="org.openehealth.coala.pdq.PDQGate"/>
+	  <ref-bean alias="xdsGate" interface="org.openehealth.coala.xds.XDSGate"/>
     </import>
   </module> 
 </beans:beans>

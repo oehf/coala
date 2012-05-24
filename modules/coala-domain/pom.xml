@@ -30,6 +30,15 @@
 				<role>scrum-master</role>
 			</roles>
 		</developer>
+		<developer>
+			<id>bmehner</id>
+			<name>Bjoern Mehner</name>
+			<email>bjoern.mehner@googlemail.com</email>
+			<roles>
+				<role>developer</role>
+				<role>project champion</role>
+			</roles>	
+		</developer>
 	</developers>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -47,17 +56,6 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-		<repository>
-			<id>build-stud</id>
-			<name>MI HSHN maven2 repository</name>
-			<url>http://build-stud.mi.hs-heilbronn.de/maven2</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
 	</repositories>
 	<reporting>
 		<plugins>
@@ -69,8 +67,8 @@
 		</plugins>
 	</reporting>
 	<organization>
-		<name>Hochschule Heilbronn - Medizinische Informatik</name>
-		<url>http://www.mi.hs-heilbronn.de</url>
+		<name>Open eHealth Foundation</name>
+		<url>http://www.openehealth.org</url>
 	</organization>
 	<dependencies>
 		<dependency>

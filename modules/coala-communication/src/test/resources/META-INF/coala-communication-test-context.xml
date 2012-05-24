@@ -4,8 +4,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <import resource="classpath:/META-INF/coala-communication-system-context.xml" />
-    <import resource="classpath:/META-INF/coala-pdq-module-context.xml" />
-    <import resource="classpath:/META-INF/coala-xds-module-context.xml" />
+    <import resource="classpath:/META-INF/coala-pdq-custom-context.xml" />
+    <import resource="classpath:/META-INF/coala-xds-custom-context.xml" />
     <import resource="classpath:/META-INF/coala-communication-custom-context.xml"/>
 	
 </beans>

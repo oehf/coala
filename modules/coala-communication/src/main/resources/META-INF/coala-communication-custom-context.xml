@@ -15,7 +15,7 @@
         </property>
     </bean>	
 
-	<bean id="pxsQueryService" class="de.hhn.mi.coala.service.PXSQueryServiceImpl">
+	<bean id="pxsQueryService" class="org.openehealth.coala.service.PXSQueryServiceImpl">
 		<property name="cdaService" ref="cdaService"/>
 		<property name="pdqGate" ref="pdqGate"/>
 		<property name="xdsGate" ref="xdsGate"/>
@@ -25,28 +25,28 @@
 		<property name="pdqConverter" ref="pdqConverter"/>
 	</bean>
 	
-	<bean id="cdaService" class="de.hhn.mi.coala.service.CDATransformationServiceImpl">
+	<bean id="cdaService" class="org.openehealth.coala.service.CDATransformationServiceImpl">
 		<property name="nameOfXSLTSheet" value="text_xml-urn_ihe_iti_bppc_2007.xsl"/>
 		<property name="documentEntryBuilder" ref="documentEntryBuilder"/>
 		<property name="cdaBuilder" ref="cdaBuilder"/>
 	</bean>
 	
-	<bean id="pdqMessageBuilder" class="de.hhn.mi.coala.communication.PdqMessageBuilder">
+	<bean id="pdqMessageBuilder" class="org.openehealth.coala.communication.PdqMessageBuilderImpl">
 		<property name="pxsDateConverter" ref="pxsDateConverter"/>
 	</bean>
 	
-	<bean id="pdqConverter" class="de.hhn.mi.coala.converter.PdqHL7Converter"/>
+	<bean id="pdqConverter" class="org.openehealth.coala.converter.PdqHL7ConverterImpl"/>
 	
-	<bean id="documentEntryBuilder" class="de.hhn.mi.coala.builder.DocumentEntryBuilder">
+	<bean id="documentEntryBuilder" class="org.openehealth.coala.builder.DocumentEntryBuilder">
 		<property name="pxsDateConverter" ref="pxsDateConverter"/>
 	</bean>
 	
-	<bean id="cdaBuilder" class="de.hhn.mi.coala.builder.CDABuilder">
+	<bean id="cdaBuilder" class="org.openehealth.coala.builder.CDABuilder">
 		<constructor-arg value="CDATemplate.txt"/>
 		<property name="pxsDateConverter" ref="pxsDateConverter"/>
 	</bean>
 	
-	<bean id="consentConverter" class="de.hhn.mi.coala.converter.ConsentConverter">
+	<bean id="consentConverter" class="org.openehealth.coala.converter.ConsentConverter">
 		<property name="pxsDateConverter" ref="pxsDateConverter"/>
 	</bean>
 </beans>

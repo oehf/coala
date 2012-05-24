@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.hhn.mi.coala</groupId>
+	<groupId>org.openehealth.coala</groupId>
 	<artifactId>coala-communication</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -101,19 +101,19 @@
 	</organization>
 	<dependencies>
 		<dependency>
-			<groupId>de.hhn.mi.coala</groupId>
+			<groupId>org.openehealth.coala</groupId>
 			<artifactId>coala-domain</artifactId>
 			<version>0.1-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
-			<groupId>de.hhn.mi.coala</groupId>
+			<groupId>org.openehealth.coala</groupId>
 			<artifactId>coala-ipf-pdq</artifactId>
 			<version>0.1-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
-			<groupId>de.hhn.mi.coala</groupId>
+			<groupId>org.openehealth.coala</groupId>
 			<artifactId>coala-ipf-xds</artifactId>
 			<version>0.1-SNAPSHOT</version>
 			<type>jar</type>
