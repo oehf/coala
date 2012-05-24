@@ -3,10 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>coala-ipf</artifactId>
-		<groupId>de.hhn.mi.coala</groupId>
+		<groupId>org.openehealth.coala</groupId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>de.hhn.mi.coala</groupId>
+	<groupId>org.openehealth.coala</groupId>
 	<artifactId>coala-ipf-pdq</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<name>Coala-IPF-PDQ</name>
@@ -209,18 +209,6 @@
 						<descriptor>src/main/assembly/bin.xml</descriptor>
 					</descriptors>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.groovy.maven</groupId>
-				<artifactId>gmaven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>generateStubs</goal>
-							<goal>compile</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

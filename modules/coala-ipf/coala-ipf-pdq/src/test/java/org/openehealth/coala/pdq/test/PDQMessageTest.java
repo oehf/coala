@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.pdq.test;
+package org.openehealth.coala.pdq.test;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -23,33 +23,42 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openehealth.coala.exception.PDQRequestFailedException;
+import org.openehealth.coala.pdq.PDQTransactor;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.hhn.mi.coala.pdq.PDQGate;
-
 /**
- * This test tests the PDQGateImpl.
+ * Test class for testing PDQ-ITI21 communication.
+ * 
+ * @author siekmann
+ * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/coala-pdq-test-context.xml" })
 @Ignore
-public class PDQGateTest implements PDQTestConstants {
+public class PDQMessageTest implements PDQTestConstants{
+
+	private static final Logger LOG = org.slf4j.LoggerFactory
+			.getLogger(PDQMessageTest.class);
 
 	@Autowired
-	private PDQGate pdqGate;
+	private PDQTransactor pdqTransactor;
 
+	/**
+	 * Just tests if the Spring context was correctly started.
+	 */
 	@Test
 	public void testSpringContext() {
-		assertNotNull(pdqGate);
+		assertNotNull(pdqTransactor);
 	}
-
+	
 	/**
 	 * Test for basic communication. Sending a request to endpoint and expecting
 	 * a valid response. <br />
 	 * <ul>
-	 * This is tested by testing .
+	 * 1) This is tested by testing .
 	 * <li>asserting that response is not NULL</li>
 	 * <li>asserting that response starts with MSH</li>
 	 * </ul>
@@ -58,8 +67,10 @@ public class PDQGateTest implements PDQTestConstants {
 	 *             Thrown if anything went wrong.
 	 */
 	@Test
-	public void testRequestPatients() {
-		String retString = pdqGate.requestPatients(VALID_REQUEST_HEADER);
+	public void testMPIConnection() throws PDQRequestFailedException {
+		String retString = pdqTransactor.sendPDQRequest(VALID_REQUEST_HEADER);
+		LOG.info("testMPIConnection\n----------------\n\n> " + VALID_REQUEST_HEADER
+				+ "\n\n< " + retString);
 		assertNotNull(retString);
 		assertTrue(retString.startsWith("MSH|"));
 	}
@@ -73,7 +84,7 @@ public class PDQGateTest implements PDQTestConstants {
 	 */
 	@Test(expected = PDQRequestFailedException.class)
 	public void testMPIConnectionWithInvalidRequestHeader() {
-		pdqGate.requestPatients(INVALID_REQUEST_HEADER);
+		pdqTransactor.sendPDQRequest(INVALID_REQUEST_HEADER);
 
 	}
 }

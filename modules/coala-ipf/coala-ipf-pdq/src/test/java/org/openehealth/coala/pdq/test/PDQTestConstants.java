@@ -14,28 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.pdq;
+package org.openehealth.coala.pdq.test;
 
-import org.openehealth.coala.exception.PDQRequestFailedException;
+public interface PDQTestConstants {
 
-/**
- * This interface contains a method to interact with a PDQ endpoint.
- * 
- * @author siekmann
- */
-public interface PDQTransactor {
-	/**
-	 * This method provides the basic communication with the PDQ endpoint. It
-	 * gets a HL7 request string and returns the HL7 response.<br />
-	 * In case of a exception during processing the request, the exception is
-	 * thrown.
-	 * 
-	 * @param request
-	 *            HL7 request message for PDQ endpoint
-	 * @return HL7 response from PDQ endpoint
-	 * @throws Exception
-	 *             Exception that is thrown during processing of the request
-	 */
-	public String sendPDQRequest(String request)
-			throws PDQRequestFailedException;
+	String VALID_REQUEST_HEADER = "MSH|^~\\&|OHFConsumer|OHFFacility|OTHER_KIOSK|HIMSSSANDIEGO|20070108145322-0800||"
+		+ "QBP^Q22|9416994431147258002|P|2.5|\nQPD|Q22^Find Candidates|"
+		+ "7891956360974608557281601076319|@PID.5.1^M*|\nRCP|I|2^RD";
+	
+	String INVALID_REQUEST_HEADER = "MSH|^~\\&||HIMSSSANDIEGO|0||"
+		+ "QBP^Q22|9416994431147258002|P|2.5|\n|"
+		+ "7891956360974608557281601076319|@PID.5.1^M*|\nRCP|I|2^RD";
 }

@@ -25,15 +25,7 @@
 
 	<!-- Default config of CamelContext -->
 	<camel:camelContext id="platformCamelContext">
-		<camel:routeBuilder ref="routeBuilder" />
 	</camel:camelContext>
-
-	<bean id="routeBuilder" depends-on="routeModelExtender"
-		class="de.hhn.mi.coala.groovy.PDQRouteBuilder">
-	</bean>
-
-	<!--  <bean id="pdqModelExtension" class="de.hhn.mi.coala.groovy.PDQModelExtension">
-	</bean>-->
 
 	<bean id="hl7codec" class="org.apache.camel.component.hl7.HL7MLLPCodec">
 		<property name="charset" value="iso-8859-1" />

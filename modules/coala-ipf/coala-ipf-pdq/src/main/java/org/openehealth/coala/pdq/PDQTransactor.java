@@ -14,27 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.pdq;
+package org.openehealth.coala.pdq;
 
 import org.openehealth.coala.exception.PDQRequestFailedException;
 
 /**
- * This interface functions as a gate to the communication with the PDQ endpoint.
+ * This interface contains a method to interact with a PDQ endpoint.
  * 
  * @author siekmann
  */
-public interface PDQGate {
+public interface PDQTransactor {
 	/**
-	 * Returns a result String from the PDQ which contains the data relating to
-	 * the found patients.
+	 * This method provides the basic communication with the PDQ endpoint. It
+	 * gets a HL7 request string and returns the HL7 response.<br />
+	 * In case of a exception during processing the request, the exception is
+	 * thrown.
 	 * 
-	 * @param hl7ReqString
-	 *            the Search string for the PDQ Server
-	 * @return the result String from the PDQ
-	 * 
-	 * @throws PDQRequestFailedException
-	 *             Is thrown if an error occurred during the PDQ communication.
+	 * @param request
+	 *            HL7 request message for PDQ endpoint
+	 * @return HL7 response from PDQ endpoint
+	 * @throws Exception
+	 *             Exception that is thrown during processing of the request
 	 */
-	public String requestPatients(String hl7ReqString)
+	public String sendPDQRequest(String request)
 			throws PDQRequestFailedException;
 }

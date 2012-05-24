@@ -15,11 +15,11 @@
         </property>
     </bean>	
 
-	<bean id="pdqGate" class="de.hhn.mi.coala.pdq.PDQGateImpl">
+	<bean id="pdqGate" class="org.openehealth.coala.pdq.PDQGateImpl">
 		<property name="pdqTransactor" ref="pdqTransactor"/>
 	</bean>
 
-	<bean id="pdqTransactor" class="de.hhn.mi.coala.pdq.PDQTransactorImpl">
+	<bean id="pdqTransactor" class="org.openehealth.coala.pdq.PDQTransactorImpl">
 		<constructor-arg value="${coala.pxs.pdq.endpoint.url}" />
 		<constructor-arg ref="platformCamelContext" />
 		<constructor-arg ref="template" />
