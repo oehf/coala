@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.hhn.mi.coala.beans;
+package org.openehealth.coala.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;

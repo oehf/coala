@@ -53,7 +53,7 @@
     <!-- Limit loggers    -->
     <!-- ================ -->
     
-    <logger name="de.hhn.mi.coala">
+    <logger name="org.openehealth.coala">
         <level value="INFO"/>
     </logger>
 

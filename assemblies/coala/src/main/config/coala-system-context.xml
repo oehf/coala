@@ -13,7 +13,7 @@
 
 	<!-- Needed for Autowired Annotation in JSF-Managed-Beans and related Service-Layers 
 		below... (astiefer, mwiesner) -->
-	<context:component-scan base-package="de.hhn.mi.coala" />
+	<context:component-scan base-package="org.openehealth.coala" />
 	<context:annotation-config />
 
 	<!-- loading the PXS specific properties here -->
@@ -28,32 +28,32 @@
     </bean>
 
 	<!-- 
-	<bean id="configuration" class="de.hhn.mi.coala.xds.XDSConfigurationImpl">
+	<bean id="configuration" class="org.openehealth.coala.xds.XDSConfigurationImpl">
 		<property name="xdsIti18endpoint" value="xds-iti18://${coala.pxs.xds.iti18.endpoint}" />
 		<property name="xdsIti41endpoint" value="xds-iti41://${coala.pxs.xds.iti41.endpoint}" />
 		<property name="xdsIti43endpoint" value="xds-iti43://${coala.pxs.xds.iti43.endpoint}" />
 		<property name="assigningAuthorityOID" value="${coala.pxs.authority.oid}" />	
 	</bean>
 	-->
-	<!--<bean id="pdqTransactor" class="de.hhn.mi.coala.pdq.PDQTransactorImpl">
+	<!--<bean id="pdqTransactor" class="org.openehealth.coala.pdq.PDQTransactorImpl">
 		<property name="pdqEndpoint"
 			value="pdq-iti21://${coala.pxs.pdq.endpoint.url}:${coala.pxs.pdq.endpoint.port}" />
 	</bean>
 
-	<bean id="pdqGate" class="de.hhn.mi.coala.pdq.PDQGateImpl">
+	<bean id="pdqGate" class="org.openehealth.coala.pdq.PDQGateImpl">
 		<property name="pdqTransactor" ref="pdqTransactor" />
 	</bean> -->
 
 	<!-- 
-	<bean id="xdsGate" class="de.hhn.mi.coala.xds.XDSGateImpl">
+	<bean id="xdsGate" class="org.openehealth.coala.xds.XDSGateImpl">
 		<property name="configuration" ref="configuration" />
 	</bean>
 
-	<bean id="pxsQueryService" class="de.hhn.mi.coala.service.PXSQueryServiceImpl">
+	<bean id="pxsQueryService" class="org.openehealth.coala.service.PXSQueryServiceImpl">
 		<property name="pdqGate" ref="pdqGate" />
 		<property name="xdsGate" ref="xdsGate" />
 	</bean>
-	<bean id="cdaService" class="de.hhn.mi.coala.service.CDATransformationServiceImpl">
+	<bean id="cdaService" class="org.openehealth.coala.service.CDATransformationServiceImpl">
 		<property name="nameOfXSLTSheet"
 			value="${coala.communication.transformer.xslt.filename}" />
 	</bean>

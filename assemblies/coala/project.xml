@@ -20,7 +20,7 @@
 	</organization>
 
 	<inceptionYear>2011</inceptionYear>
-	<package>de.hhn.mi.coala</package>
+	<package>org.openehealth.coala</package>
 	<shortDescription>CoALA supports the management of consent acknowledgements.</shortDescription>
 	<url>https://trac.mi.hs-heilbronn.de/smc/ss11</url>
 	<mailingLists />
@@ -74,7 +74,7 @@
 	<dependencies>
 		<!-- Coala module-dependencies -->
 		<dependency>
-			<groupId>de.hhn.mi.coala</groupId>
+			<groupId>org.openehealth.coala</groupId>
 			<artifactId>coala-domain</artifactId>
 			<version>0.1-SNAPSHOT</version>
 			<properties>
@@ -83,7 +83,7 @@
 			</properties>
 		</dependency>
 		<dependency>
-			<groupId>de.hhn.mi.coala</groupId>
+			<groupId>org.openehealth.coala</groupId>
 			<artifactId>coala-communication</artifactId>
 			<version>0.1-SNAPSHOT</version>
 			<properties>
@@ -94,7 +94,7 @@
 			<type>jar</type>
 		</dependency>
 		<dependency>
-			<groupId>de.hhn.mi.coala</groupId>
+			<groupId>org.openehealth.coala</groupId>
 			<artifactId>coala-ipf-pdq</artifactId>
 			<version>0.1-SNAPSHOT</version>
 			<properties>
@@ -105,7 +105,7 @@
 			<type>jar</type>
 		</dependency>
 		<dependency>
-			<groupId>de.hhn.mi.coala</groupId>
+			<groupId>org.openehealth.coala</groupId>
 			<artifactId>coala-ipf-xds</artifactId>
 			<version>0.1-SNAPSHOT</version>
 			<properties>

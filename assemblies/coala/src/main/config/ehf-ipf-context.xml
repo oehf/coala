@@ -34,13 +34,7 @@
 
 	<camel:camelContext id="platformCamelContext">
 
-	<!--  remove comment to activate the route builders -->
-<!--
-		<camel:routeBuilder ref="atnaEventProcessingRouteBuilder"/>
-		<camel:routeBuilder ref="eventProcessingRouteBuilder"/>
--->
-		<camel:routeBuilder ref="xdsRouteBuilder" />
-		<camel:routeBuilder ref="pdqRouteBuilder" />
+	
 		
 		@@@camel.route.fragment@@@
 <!-- This route adds a consumer for the platform event, which simply sends them to a mock endpoint.
@@ -53,13 +47,6 @@ direct:platformEventProcessingEndpoint).
          </camel:route>
 	</camel:camelContext>
 	
-	<bean id="pdqRouteBuilder" depends-on="pdqRouteModelExtender"
-		class="de.hhn.mi.coala.groovy.PDQRouteBuilder">
-	</bean>
-
-	<!--  <bean id="pdqModelExtension" class="de.hhn.mi.coala.groovy.PDQModelExtension">
-	</bean>-->
-
 	<bean id="hl7codec" class="org.apache.camel.component.hl7.HL7MLLPCodec">
 		<property name="charset" value="iso-8859-1" />
 	</bean>
@@ -167,10 +154,6 @@ direct:platformEventProcessingEndpoint).
 			<sec:Password>Pass1234_</sec:Password>
 		</http:authorization>
 	</http:conduit>
-
-	<bean id="xdsRouteBuilder" depends-on="xdsRouteModelExtender"
-		class="de.hhn.mi.coala.groovy.XDSRouteBuilder">
-	</bean>
 
 	<bean id="xdsModelExtension"
 		class="org.openehealth.ipf.platform.camel.ihe.xds.core.extend.XDSModelExtension">
