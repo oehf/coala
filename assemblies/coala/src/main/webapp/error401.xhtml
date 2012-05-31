@@ -1,0 +1,25 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+  <title>CoALA - Error report</title>
+</h:head>
+<h:body>
+  <h1><h:outputText value="Error 401: The 401 Unauthorized error is an 
+  HTTP status code that means the page you were trying to access can not 
+  be loaded until you first log on with a valid user ID and password. 
+  If you have just logged on and received the 401 Unauthorized error, 
+  it means that the credentials you entered were invalid for some reason. " 
+  style="FONT-SIZE: large;"/>
+  <br />
+  <h:outputText value="See the logfiles for details!" style="FONT-SIZE: medium;"/>
+  <br />
+  <h:outputLink value="#{request.contextPath}/login.xhtml">
+  <h:outputText value="back" style="FONT-SIZE: medium;"/>
+  </h:outputLink>
+  </h1>
+</h:body>
+</html>

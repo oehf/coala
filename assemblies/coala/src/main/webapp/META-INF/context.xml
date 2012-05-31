@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--                                         -->
+<!-- ICW eHF Standard Configuration          -->
+<!-- Created by the ICW eHF Project Template -->
+<!--                                         -->
+
+<!-- 
+	This is necessary to prevent problems with myfaces.jar while undeploying
+ -->
+<Context path="/coala-assembly" debug="0" reloadable="true" antiResourceLocking="true"/>

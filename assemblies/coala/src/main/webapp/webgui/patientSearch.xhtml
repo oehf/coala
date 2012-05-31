@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition template="/webgui/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<ui:define name="content">
+		<!-- POST-REDIRECT-GET: Mapping view-params to LoginBean -->
+		<f:metadata>
+			<f:viewParam name="j_username" value="#{loginBean.username}" />
+			<f:viewParam name="j_password" value="#{loginBean.password}" />
+			<f:viewParam name="selected_locale" value="#{localeHandler.locale}" />
+		</f:metadata>
+
+		<f:view locale="#{localeHandler.locale}">
+			<f:loadBundle basename="messages" var="msg" />
+			<rich:panel id="mainPanel" height="95%">
+				<f:facet name="header"></f:facet>
+				<h:panelGrid columns="2" border="0"
+					columnClasses="gridCellTop,gridCellTop">
+					<!-- first inner panel for patient search -->
+					<rich:panel id="patientSearchPanel"
+						style="vertical-align:top; margin: 20px;" width="800px"
+						height="100%">
+						<f:facet name="header">
+							<h:outputText value="#{msg['search.heading']}" />
+						</f:facet>
+						<h:form id="searchForm">
+							<h:graphicImage value="/resources/images/coala_logo_small.png"
+								style="float:right" alt="Logo" />
+							<f:event listener="#{patientBean.validateSearchParameters}"
+								type="postValidate" />
+							<h:panelGrid id="gridSearch" columns="4" width="500px"
+								columnClasses="gridCellLeftFixedSize,gridCellLeft,gridCellLeftFixedSize,gridCellLeft">
+								<h:outputLabel value="#{msg['search.patient_id']}"
+									for="patientID" class="label" />
+								<h:inputText id="patientID" value="#{patientBean.patientID}">
+								</h:inputText>
+								<h:outputLabel value="#{msg['search.patient_givenname']}"
+									for="givenName" class="label" />
+								<h:inputText id="givenName" value="#{patientBean.givenName}">
+								</h:inputText>
+								<h:outputLabel value="#{msg['search.patient_lastname']}"
+									for="lastName" class="label" />
+								<h:inputText id="lastName" value="#{patientBean.lastName}">
+								</h:inputText>
+								<h:outputLabel value="#{msg['search.patient_birth']}"
+									for="dateOfBirth" class="label" />
+								<rich:calendar enableManualInput="true" id="dateOfBirth"
+									value="#{patientBean.birthdate}"
+									validator="#{patientBean.validator}">
+									<f:convertDateTime type="date" dateStyle="medium" />
+								</rich:calendar>
+							</h:panelGrid>
+							<h:panelGrid id="messagesGrid" columns="2" border="0"
+								width="800px" columnClasses="gridCellLeftFixedSize,gridCellLeft">
+								<a4j:commandButton id="search" value="#{msg['button.search']}"
+									action="#{patientBean.search}" status="ajaxStatusRollerTop"
+									render="patientResultPanel,consentResultPanel" />
+								<rich:messages showDetail="true" id="searchResultNotification"
+									minLevel="INFO" style="horizontal-align:left;" globalOnly="true"/>
+							</h:panelGrid>
+						</h:form>
+					</rich:panel>
+					<!-- panel for ajax status display roller... -->
+					<rich:panel id="statusPanelTop"
+						style="border:0; vertical-align:top; width:100%; float:right;">
+						<a4j:status name="ajaxStatusRollerTop">
+							<f:facet name="start">
+								<h:graphicImage value="/resources/images/ajax-loader.gif"
+									style="width:32px; height:32px;" alt="loading..." />
+							</f:facet>
+						</a4j:status>
+					</rich:panel>
+					<!-- third inner panel for patient search results -->
+					<rich:panel id="patientResultPanel"
+						style="vertical-align:top; margin: 20px;" width="800px"
+						height="100%">
+						<!-- rendered="#{patientBean.patients.rowCount gt 0}" -->
+						<f:facet name="header">
+							<h:outputText
+								value="#{msg['patient.result.heading']} #{patientBean.searchString}" />
+						</f:facet>
+
+						<h:form>
+							<rich:message for="patientResultPanel" minLevel="INFO" showDetail="true"/>
+							<rich:extendedDataTable id="patients"
+								value="#{patientBean.patients}" var="patient"
+								selection="#{patientBean.patientSelection}"
+								selectionMode="single" sortMode="multi"
+								style="width:100%; height:300px"
+								rendered="#{patientBean.patients.rowCount gt 0}">
+								<a4j:ajax execute="@form" status="ajaxStatusRollerMiddle"
+									listener="#{patientBean.selectionListenerPatient}"
+									event="selectionchange"
+									render=":consentResultPanel, patientResultPanel" />
+								<rich:column width="80px">
+									<f:facet name="header">
+										<a4j:commandLink value="#{msg['result.id']}" render="patients"
+											action="#{patientBean.sortByPatientID}"
+											status="ajaxStatusRollerMiddle" />
+									</f:facet>
+									<h:outputText value="#{patient.patientID}" />
+								</rich:column>
+
+								<rich:column width="130px">
+									<f:facet name="header">
+										<a4j:commandLink value="#{msg['result.given_name']}"
+											render="patients" action="#{patientBean.sortByGivenName}"
+											status="ajaxStatusRollerMiddle" />
+									</f:facet>
+									<h:outputText value="#{patient.givenName}" />
+								</rich:column>
+
+								<rich:column width="130px">
+									<f:facet name="header">
+										<a4j:commandLink value="#{msg['result.last_name']}"
+											render="patients" action="#{patientBean.sortByLastName}"
+											status="ajaxStatusRollerMiddle" />
+									</f:facet>
+									<h:outputText value="#{patient.lastName}" />
+								</rich:column>
+
+								<rich:column width="120px">
+									<f:facet name="header">
+										<a4j:commandLink value="#{msg['result.birthdate']}"
+											render="patients" action="#{patientBean.sortByBirthdate}"
+											status="ajaxStatusRollerMiddle" />
+									</f:facet>
+									<h:outputText value="#{patient.birthdate}">
+										<f:convertDateTime type="date" dateStyle="medium" />
+									</h:outputText>
+								</rich:column>
+
+								<rich:column width="340px">
+									<f:facet name="header">
+										<h:outputText value="#{msg['result.address']}" />
+									</f:facet>
+									<h:outputText
+										value="#{patient.address.streetAddress}, #{patient.address.zipOrPostalCode} #{patient.address.city}" />
+								</rich:column>
+							</rich:extendedDataTable>
+						</h:form>
+					</rich:panel>
+					<!-- panel for ajax status display roller... -->
+					<rich:panel id="statusPanelMiddle"
+						style="border:0; vertical-align:top; width:100%; float:right;">
+						<a4j:status name="ajaxStatusRollerMiddle">
+							<f:facet name="start">
+								<h:graphicImage value="/resources/images/ajax-loader.gif"
+									style="width:32px; height:32px;" alt="loading..." />
+							</f:facet>
+						</a4j:status>
+					</rich:panel>
+					<!-- fourth inner panel for consent results -->
+					<h:form>
+						<rich:panel id="consentResultPanel"
+							style="vertical-align:top; margin: 20px;" width="800px"
+							height="300px">
+							<!-- rendered="#{consentBean.consents.rowCount gt 0}" -->
+							<f:facet name="header">
+								<h:outputText
+									value="#{msg['consent.result.heading']} #{consentBean.patientString}" />
+							</f:facet>
+							<h:panelGrid id="registerGrid" columns="2" border="0"
+								width="800px" columnClasses="gridCellLeftFixedSize,gridCellLeft">
+								<h:commandButton id="register" action="createConsent" immediate="true"
+									value="#{msg['consent.register']}"
+									disabled="#{patientBean.selectedPatient eq null}">
+									<rich:tooltip for="registerOutput" followMouse="true">
+										<span style="white-space: nowrap"><h:outputText
+												value="#{msg['tooltip.register']}" /> </span>
+									</rich:tooltip>
+								</h:commandButton>
+							</h:panelGrid>
+							<a4j:region>
+								<rich:extendedDataTable id="consents"
+									value="#{consentBean.consents}" var="patientConsent"
+									selection="#{consentBean.consentSelection}"
+									selectionMode="single"
+									rendered="#{consentBean.consents.rowCount gt 0}">
+									<a4j:ajax execute="@form"
+										listener="#{consentBean.selectionListenerConsent}"
+										event="selectionchange" render=":consentDisplayPanel"
+										status="ajaxStatusRollerBottom" />
+									<rich:column>
+										<f:facet name="header">
+											<a4j:commandLink value="#{msg['consent.active']}"
+												render="consents" action="#{consentBean.sortByActive}" />
+										</f:facet>
+										<h:outputText value="#{patientConsent.active}" />
+									</rich:column>
+									<rich:column width="200px">
+										<f:facet name="header">
+											<a4j:commandLink value="#{msg['consent.policy']}"
+												render="consents" action="#{consentBean.sortByPolicy}" />
+										</f:facet>
+										<h:outputText value="#{patientConsent.policyType.shortName}" />
+									</rich:column>
+									<rich:column>
+										<f:facet name="header">
+											<a4j:commandLink value="#{msg['consent.validFrom']}"
+												render="consents" action="#{consentBean.sortByStartDate}" />
+										</f:facet>
+										<h:outputText value="#{patientConsent.validFrom}">
+											<f:convertDateTime type="date" dateStyle="medium" />
+										</h:outputText>
+									</rich:column>
+									<rich:column>
+										<f:facet name="header">
+											<a4j:commandLink value="#{msg['consent.validUntil']}"
+												render="consents" action="#{consentBean.sortByEndDate}" />
+										</f:facet>
+										<h:outputText value="#{patientConsent.validUntil}">
+											<f:convertDateTime type="date" dateStyle="medium" />
+										</h:outputText>
+									</rich:column>
+									<rich:column width="200px">
+										<f:facet name="header">
+											<a4j:commandLink value="#{msg['consent.author']}"
+												render="consents" action="#{consentBean.sortByAuthor}" />
+										</f:facet>
+										<h:outputText value="#{patientConsent.author}" />
+									</rich:column>
+									<rich:column>
+										<f:facet name="header">
+											<a4j:commandLink value="#{msg['consent.createdOn']}"
+												render="consents" action="#{consentBean.sortByCreationDate}" />
+										</f:facet>
+										<h:outputText value="#{patientConsent.creationDate}">
+											<f:convertDateTime type="date" dateStyle="medium" />
+										</h:outputText>
+									</rich:column>
+								</rich:extendedDataTable>
+
+
+
+								<rich:popupPanel id="consentDisplayPanel" modal="true"
+									moveable="false" resizeable="false" width="480" height="320">
+									<f:facet name="header">
+										<h:panelGroup>
+											<h:outputText
+												value="Consent Acknowledgement for: #{consentBean.patientString}"></h:outputText>
+										</h:panelGroup>
+									</f:facet>
+									<f:facet name="controls">
+									</f:facet>
+
+									<h:panelGrid columns="1" id="consentDisplayPanelGrid">
+										<h:outputText id="renderedConsentText" escape="false"
+											value="Placeholder text..."
+											rendered="#{consentBean.consents.rowCount gt 0}" />
+										<a4j:commandButton id="consentBackButton"
+											value="#{msg['button.back']}">
+											<a4j:ajax listener="#{consentBean.cleanCurrentSelection}"
+												event="click" render="consents" status="ajaxStatusRoller"
+												oncomplete="#{rich:component('consentDisplayPanel')}.hide();" />
+										</a4j:commandButton>
+									</h:panelGrid>
+								</rich:popupPanel>
+							</a4j:region>
+						</rich:panel>
+					</h:form>
+					<!-- panel for ajax status display roller... -->
+					<rich:panel id="statusPanelBottom"
+						style="border:0; vertical-align:top; width:100%; float:right;">
+						<a4j:status name="ajaxStatusRollerBottom">
+							<f:facet name="start">
+								<h:graphicImage value="/resources/images/ajax-loader.gif"
+									style="width:32px; height:32px;" alt="loading..." />
+							</f:facet>
+						</a4j:status>
+					</rich:panel>
+				</h:panelGrid>
+			</rich:panel>
+		</f:view>
+	</ui:define>
+</ui:composition>
