@@ -22,6 +22,7 @@ import java.util.Date;
 
 import junit.framework.JUnit4TestAdapter;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -41,7 +42,8 @@ import org.openehealth.coala.domain.PatientSortParameter;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:/META-INF/ehf-system-context.xml"})
+@ContextConfiguration(locations = {"classpath:/META-INF/coala-system-context.xml"})
+@Ignore
 public class CoalaDomainIntegrationTest {
 
 	private String patientIDAssigningAuthorityUniversalId = "2.16.840.1.113883.3.37.4.1.1.2.2.1";

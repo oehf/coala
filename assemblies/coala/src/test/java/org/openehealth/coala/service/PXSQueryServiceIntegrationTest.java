@@ -26,6 +26,7 @@ import junit.framework.JUnit4TestAdapter;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -55,7 +56,8 @@ import org.openehealth.coala.interfacing.PatientService;
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/META-INF/ehf-system-context.xml" })
+@ContextConfiguration(locations = { "classpath:/META-INF/coala-system-context.xml" })
+@Ignore
 public class PXSQueryServiceIntegrationTest {
 
 	private static final String PID_FOR_PATIENT_FIND = "305010";
