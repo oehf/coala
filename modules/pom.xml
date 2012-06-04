@@ -5,7 +5,7 @@
 	<artifactId>coala-modules</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Coala</name>
+	<name>Coala Modules</name>
 	<organization>
 		<name>Open eHealth Foundation</name>
 		<url>http://www.openehealth.org</url>
