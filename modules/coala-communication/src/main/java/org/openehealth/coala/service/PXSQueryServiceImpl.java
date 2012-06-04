@@ -41,7 +41,7 @@ import org.openehealth.coala.exception.ServiceParameterException;
 import org.openehealth.coala.exception.XDSRequestFailedException;
 import org.openehealth.coala.interfacing.CDATransformationService;
 import org.openehealth.coala.interfacing.ConsentCreationService;
-import org.openehealth.coala.interfacing.PXSPatientService;
+import org.openehealth.coala.interfacing.PatientService;
 import org.openehealth.coala.pdq.PDQGate;
 import org.openehealth.coala.util.CdaDataSourceImpl;
 import org.openehealth.coala.xds.XDSGate;
@@ -60,7 +60,7 @@ import org.slf4j.Logger;
  * @FIXME This class apparently does more than one thing. Its responsibility is not clearly defined.
  * 		Code smell! A refactoring is needed here.
  */
-public class PXSQueryServiceImpl implements PXSPatientService, ConsentCreationService {
+public class PXSQueryServiceImpl implements PatientService, ConsentCreationService {
 	
 	private static final Logger LOG = org.slf4j.LoggerFactory
 		.getLogger(PXSQueryServiceImpl.class);
