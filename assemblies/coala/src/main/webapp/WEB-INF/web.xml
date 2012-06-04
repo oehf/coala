@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+
+<!-- -->
+<!-- ICW eHF Standard Configuration -->
+<!-- Created by the ICW eHF Project Template -->
+<!-- -->
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema">
+	<distributable />
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<!-- the ehf-system-context.xml is the central spring context entry point -->
+		<param-value>/WEB-INF/classes/META-INF/coala-system-context.xml
+		</param-value>
+	</context-param>
+
+	<context-param>
+    	<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+    	<param-value>true</param-value>
+	</context-param>
+
+	<!-- 
+	<filter>
+	  <filter-name>filterChain</filter-name>
+	  <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter>
+	    <filter-name>utf8EncodingFilter</filter-name>
+	    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	    <init-param>
+	        <param-name>encoding</param-name>
+	        <param-value>UTF-8</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>forceEncoding</param-name>
+	        <param-value>true</param-value>
+	    </init-param>
+	</filter>
+
+	<filter-mapping>
+	  <filter-name>filterChain</filter-name>
+	  <url-pattern>/*</url-pattern>
+	</filter-mapping>
+      	
+  	<filter-mapping>
+	    <filter-name>utf8EncodingFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	 -->
+
+	<mime-mapping>
+		<extension>wsdl</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>xsd</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+
+	<!-- 
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error500.xhtml</location>
+	</error-page>
+	<error-page>
+		<error-code>401</error-code>
+		<location>/error401.xhtml</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/error403.xhtml</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error404.xhtml</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/errorexception.xhtml</location>
+	</error-page>
+	 -->
+	
+	<!-- Coala JSF-Configuration -->
+	<description>CoALA</description>
+
+	<!-- Spring Application Context Loader -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	<!-- Needed for Request Scope Beans -->
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener
+		</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>client</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.richfaces.skin</param-name>
+		<param-value>blueSky</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.richfaces.enableControlSkinning</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.richfaces.enableControlSkinningClasses</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	
+	<listener>
+		<listener-class>com.sun.faces.config.ConfigureListener
+		</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
+
+	<!-- Faces Servlet -->
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- Faces Servlet Mapping -->
+	<!-- Map these files with JSF -->
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.faces</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+
+	<!-- Welcome files -->
+	<welcome-file-list>
+		<welcome-file>login.xhtml</welcome-file>
+	</welcome-file-list>
+</web-app>

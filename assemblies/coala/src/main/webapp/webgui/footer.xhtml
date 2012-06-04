@@ -1,0 +1,13 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<f:view locale="#{localeHandler.locale}">
+		<f:loadBundle basename="messages" var="msg" />
+		<span class="right"> <h:outputText 
+				value="&#169;#{msg['copyright.year']} " class="label" /> <h:outputLink
+				value="#{msg['company.url']}" target="_blank">
+				<h:outputText value="#{msg['company.name']}" />
+			</h:outputLink> </span>
+	</f:view>
+</ui:composition>

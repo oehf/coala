@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--                                         -->
+<!-- ICW eHF Standard Configuration          -->
+<!-- Created by the ICW eHF Project Template -->
+<!--                                         -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:ehf="http://www.intercomponentware.com/schema/ehf-util"
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:http="http://cxf.apache.org/transports/http/configuration"
+	xmlns:sec="http://cxf.apache.org/configuration/security" 
+	xmlns:cxf="http://cxf.apache.org/core"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        				http://www.springframework.org/schema/lang 
+        				http://www.springframework.org/schema/lang/spring-lang.xsd
+						http://www.intercomponentware.com/schema/ehf-util http://www.intercomponentware.com/schema/ehf-util/ehf-util.xsd
+						http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+						http://cxf.apache.org/core 
+						http://cxf.apache.org/schemas/core.xsd
+						http://cxf.apache.org/transports/http/configuration
+						http://cxf.apache.org/schemas/configuration/http-conf.xsd
+						http://cxf.apache.org/configuration/security
+						http://cxf.apache.org/schemas/configuration/security.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<import resource="classpath:META-INF/ehf-ipf-atna-context.xml" />
+
+	<camel:camelContext id="platformCamelContext">
+
+	
+		
+		@@@camel.route.fragment@@@
+<!-- This route adds a consumer for the platform event, which simply sends them to a mock endpoint.
+Remove this route if a funtional route is installed for processing these events (it has to supply the
+direct:platformEventProcessingEndpoint).
+-->
+         <camel:route>
+            <camel:from uri="direct:platformEventProcessingEndpoint"/>
+            <camel:to uri="mock:processEvents"/>
+         </camel:route>
+	</camel:camelContext>
+	
+	<bean id="hl7codec" class="org.apache.camel.component.hl7.HL7MLLPCodec">
+		<property name="charset" value="iso-8859-1" />
+	</bean>
+
+	<!-- HAPI extensions -->
+	<bean id="hapiModelExtension"
+		class="org.openehealth.ipf.modules.hl7.extend.HapiModelExtension">
+		<!-- <property name="mappingService" ref="..." /> -->
+	</bean>
+
+	<!-- General Mapping extensions <bean id="mappingExtension" class="org.openehealth.ipf.commons.map.extend.MappingExtension"> 
+		<property name="mappingService" ref="..." /> </bean> -->
+
+	<!-- Camel DSL extensions -->
+	<bean id="hl7ModelExtension"
+		class="org.openehealth.ipf.platform.camel.hl7.extend.Hl7ModelExtension">
+	</bean>
+
+	<bean id="coreModelExtension"
+		class="org.openehealth.ipf.platform.camel.core.extend.CoreModelExtension">
+	</bean>
+
+	<bean id="pdqRouteModelExtender"
+		class="org.openehealth.ipf.platform.camel.core.extend.DefaultModelExtender">
+		<property name="routeModelExtensions">
+			<list>
+				<ref bean="coreModelExtension" />
+				<!-- <ref bean="pdqModelExtension" />-->
+				<ref bean="hl7ModelExtension" />
+				<ref bean="hapiModelExtension" />
+				<!-- <ref bean="mappingExtension" /> -->
+			</list>
+		</property>
+	</bean>
+	
+	<!-- enabling webservice logging here -->
+	<bean id="logInbound" class="org.apache.cxf.interceptor.LoggingInInterceptor" />
+	<bean id="logOutbound" class="org.apache.cxf.interceptor.LoggingOutInterceptor" />
+	
+	<cxf:bus>
+		<!-- Activating the logging of every inbound message for debugging purposes -->
+		<cxf:inInterceptors>
+			<ref bean="logInbound" />
+		</cxf:inInterceptors>
+
+		<!-- if you activate this a ClassCastException will occur in a class Dymtro 
+			has written... -->
+		<!-- <cxf:outInterceptors> -->
+		<!-- <ref bean="logOutbound"/> -->
+		<!-- </cxf:outInterceptors> -->
+	</cxf:bus>
+
+
+	<!-- This is needed to define secure PXS/XDS communication for ITI-41 endpoint -->
+	<http:conduit
+		name="https://icw-pxs.iap.hs-heilbronn.de:8443/pxs-vmr-assembly/webservices/xdsb-provideandregister.*">
+		<http:tlsClientParameters disableCNCheck="true">
+
+			<sec:keyManagers keyPassword="changeit">
+				<sec:keyStore type="JKS" password="changeit" resource="coala-keystore.jks" />
+			</sec:keyManagers>
+			<sec:trustManagers>
+				<sec:keyStore type="JKS" password="changeit" resource="coala-keystore.jks" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+				<!-- these filters ensure that a ciphersuite with export-suitable or 
+					null encryption is used, but exclude anonymous Diffie-Hellman key change 
+					as this is vulnerable to man-in-the-middle attacks -->
+				<sec:include>.*_EXPORT_.*</sec:include>
+				<sec:include>.*_EXPORT1024_.*</sec:include>
+				<sec:include>.*_WITH_DES_.*</sec:include>
+				<sec:include>.*_WITH_NULL_.*</sec:include>
+				<sec:exclude>.*_DH_anon_.*</sec:exclude>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:authorization>
+			<sec:UserName>xdsRegister</sec:UserName>
+			<sec:Password>Pass1234_</sec:Password>
+		</http:authorization>
+	</http:conduit>
+	<!-- This is needed to define secure PXS/XDS communication for the ITI-18 
+		and ITI-43 endpoint -->
+	<http:conduit name="*.http-conduit">
+		<http:tlsClientParameters disableCNCheck="true">
+
+			<sec:keyManagers keyPassword="changeit">
+				<sec:keyStore type="JKS" password="changeit" resource="coala-keystore.jks" />
+			</sec:keyManagers>
+			<sec:trustManagers>
+				<sec:keyStore type="JKS" password="changeit" resource="coala-keystore.jks" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+				<!-- these filters ensure that a ciphersuite with export-suitable or 
+					null encryption is used, but exclude anonymous Diffie-Hellman key change 
+					as this is vulnerable to man-in-the-middle attacks -->
+				<sec:include>.*_EXPORT_.*</sec:include>
+				<sec:include>.*_EXPORT1024_.*</sec:include>
+				<sec:include>.*_WITH_DES_.*</sec:include>
+				<sec:include>.*_WITH_NULL_.*</sec:include>
+				<sec:exclude>.*_DH_anon_.*</sec:exclude>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:authorization>
+			<sec:UserName>xdsUser</sec:UserName>
+			<sec:Password>Pass1234_</sec:Password>
+		</http:authorization>
+	</http:conduit>
+
+	<bean id="xdsModelExtension"
+		class="org.openehealth.ipf.platform.camel.ihe.xds.core.extend.XDSModelExtension">
+	</bean>
+
+	<bean id="cdaModelExtension"
+		class="org.openehealth.ipf.modules.cda.builder.CDAR2ModelExtension">
+	</bean>
+
+	<bean id="xdsRouteModelExtender"
+		class="org.openehealth.ipf.platform.camel.core.extend.DefaultModelExtender">
+		<property name="routeModelExtensions">
+			<list>
+				<ref bean="coreModelExtension" />
+				<ref bean="xdsModelExtension" />
+				<ref bean="cdaModelExtension" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="endpointMessageSender" class="com.icw.ehf.messaging.camel.EndpointMessageSender">
+		<property name="template" ref="template"/>
+		<property name="endpointURI" value="direct:platformEventProcessingEndpoint"/>
+	</bean>
+	
+<!--
+	<bean id="eventProcessingRouteBuilder" class="com.icw.ehf.assembly.integration.EventProcessingRouteBuilder"/>
+-->
+	
+	<bean id="transformationAdapterProcessor" class="com.icw.ehf.integration.transform.audit.TransformationAdapterProcessor">
+		<property name="beanFactory" ref="transformationBeanFactory"/>
+	</bean>
+ 
+	<bean id="servletComponent"
+		class="com.icw.ehf.commons.camel.component.servlet.ServletComponent">
+		<property name="servletHandler" ref="servletHandler" />
+		<property name="camelContext" ref="platformCamelContext" />
+	</bean>
+
+	<bean id="servletHandler"
+		class="com.icw.ehf.commons.camel.component.servlet.DefaultServletHandler">
+	</bean>
+
+	<bean id="resourceComponent"
+		class="com.icw.ehf.commons.camel.component.resource.ResourceComponent">
+		<property name="component" ref="restletComponent" />
+		<property name="camelContext" ref="platformCamelContext" />
+	</bean>
+
+	<bean id="restletComponentTarget" class="org.restlet.Component" />
+
+	<bean id="restletComponent"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="restletComponentTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="handle">PROPAGATION_REQUIRES_NEW
+				</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>

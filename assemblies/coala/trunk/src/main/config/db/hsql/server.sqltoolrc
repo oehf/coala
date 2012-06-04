@@ -1,4 +1,0 @@
-urlid testdb
-url @@connection.url@@
-username @@connection.username@@
-password @@connection.password@@

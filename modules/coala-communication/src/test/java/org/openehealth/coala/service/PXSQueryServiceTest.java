@@ -47,7 +47,7 @@ import org.openehealth.coala.domain.PatientConsent;
 import org.openehealth.coala.domain.PatientConsentPolicy;
 import org.openehealth.coala.domain.PatientSortParameter;
 import org.openehealth.coala.interfacing.ConsentCreationService;
-import org.openehealth.coala.interfacing.PXSPatientService;
+import org.openehealth.coala.interfacing.PatientService;
 import org.openehealth.coala.pdq.PDQGate;
 import org.openehealth.coala.util.PXSDateConverter;
 
@@ -59,7 +59,7 @@ import org.openehealth.coala.util.PXSDateConverter;
 @Ignore
 public class PXSQueryServiceTest {
 
-	private PXSPatientService pXSQueryService;
+	private PatientService pXSQueryService;
 	private ConsentCreationService consentCreationService;
 	private PXSDateConverter pxsDateConverter;
 
