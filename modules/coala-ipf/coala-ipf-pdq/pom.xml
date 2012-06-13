@@ -12,22 +12,7 @@
 	<version>0.1-SNAPSHOT</version>
 	<name>Coala-IPF-PDQ</name>
 	<description>Coala module binding for PDQ communication</description>
-	<properties>
-		<ipf-version>2.2.1</ipf-version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<copyright.year>2011</copyright.year>
-	</properties>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.openehealth.ipf</groupId>
-				<artifactId>ipf</artifactId>
-				<version>${ipf-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.openehealth.coala</groupId>
@@ -49,19 +34,11 @@
 		<dependency>
 			<groupId>org.openehealth.ipf.platform-camel</groupId>
 			<artifactId>platform-camel-ihe-pixpdq</artifactId>
-			<version>${ipf-version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-simple</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<!-- USE with Camel -->
 		<dependency>
 			<groupId>org.openehealth.ipf.platform-camel</groupId>
 			<artifactId>platform-camel-hl7</artifactId>
-			<version>${ipf-version}</version>
 		</dependency>
 		<!-- HAPI version? -->
 		<!-- Dependency for HL7 v2.5 -->
@@ -82,20 +59,10 @@
 		<dependency>
 			<groupId>org.openehealth.ipf.platform-camel</groupId>
 			<artifactId>platform-camel-ihe-mllp</artifactId>
-			<version>${ipf-version}</version>
-			<type>test-jar</type>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-simple</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.openehealth.ipf.commons</groupId>
 			<artifactId>commons-ihe-atna</artifactId>
-			<version>${ipf-version}</version>
-			<type>test-jar</type>
 		</dependency>
 	</dependencies>
 </project>

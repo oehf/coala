@@ -14,27 +14,10 @@
 		<relativePath>../../../poms</relativePath>
 	</parent>
 	
-	
-	<properties>
-		<ipf-version>2.2.1</ipf-version>
-	</properties>
-	
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.openehealth.ipf</groupId>
-				<artifactId>ipf</artifactId>
-				<version>${ipf-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.openehealth.coala</groupId>
 			<artifactId>coala-domain</artifactId>
-			<version>${project.version}</version>
 		</dependency>
      	<dependency>
 			<groupId>org.springframework</groupId>
@@ -43,46 +26,30 @@
 		<dependency>
     		<groupId>org.openehealth.ipf.platform-camel</groupId>
    			 <artifactId>platform-camel-cda</artifactId>
-    		<version>${ipf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openehealth.ipf.commons</groupId>
 			<artifactId>commons-ihe-ws</artifactId>
-			<version>${ipf-version}</version>
-			<type>test-jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.openehealth.ipf.platform-camel</groupId>
 			<artifactId>platform-camel-ihe-xds</artifactId>
-			<version>${ipf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.openehealth.ipf.platform-camel</groupId>
-			<artifactId>platform-camel-ihe-mllp</artifactId>
-			<version>${ipf-version}</version>
-			<type>test-jar</type>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-simple</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
 			<groupId>org.openehealth.ipf.commons</groupId>
 			<artifactId>commons-ihe-atna</artifactId>
-			<version>${ipf-version}</version>
-			<type>test-jar</type>
 		</dependency>
-		<!-- Use it as soon as CDA is needed -->
+		<dependency>
+			<groupId>org.openehealth.ipf.platform-camel</groupId>
+			<artifactId>platform-camel-ihe-mllp</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.openehealth.ipf.modules</groupId>
 			<artifactId>modules-cda</artifactId>
-			<version>${ipf-version}</version>
 		</dependency>
 
 		<dependency>
