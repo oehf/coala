@@ -20,9 +20,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
 
-import junit.framework.JUnit4TestAdapter;
-
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -41,10 +38,9 @@ import org.openehealth.coala.domain.PatientSortParameter;
  * @author astiefer
  *
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:/META-INF/coala-system-context.xml"})
-@Ignore
-public class CoalaDomainIntegrationTest {
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations = {"classpath:/META-INF/coala-system-context.xml"})
+public class CoalaDomainIT {
 
 	private String patientIDAssigningAuthorityUniversalId = "2.16.840.1.113883.3.37.4.1.1.2.2.1";
 
@@ -67,8 +63,4 @@ public class CoalaDomainIntegrationTest {
 		CDABuilder builder = new CDABuilder("CDATemplate.txt");
 		assertNotNull(builder);
 	}
-	
-	public static junit.framework.Test suite() {
-        return new JUnit4TestAdapter(CoalaDomainIntegrationTest.class);
-    }
 }
