@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openehealth.coala.exception.XDSRequestFailedException;
 import org.openehealth.coala.xds.XDSTransactorImpl;
@@ -37,6 +38,7 @@ import org.slf4j.Logger;
  * @author siekmann, mwiesner
  * 
  */
+@Ignore
 public class XDSTransactorIti43Test extends XDSBaseTest {
 
 	private static final Logger LOG = org.slf4j.LoggerFactory

@@ -22,18 +22,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
-import junit.framework.JUnit4TestAdapter;
-
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import org.openehealth.coala.domain.ConsentSortParameter;
 import org.openehealth.coala.domain.FindPatientConsentResult;
 import org.openehealth.coala.domain.FindPatientQuery;
@@ -44,6 +35,10 @@ import org.openehealth.coala.domain.PatientAddress;
 import org.openehealth.coala.domain.PatientSortParameter;
 import org.openehealth.coala.interfacing.ConsentCreationService;
 import org.openehealth.coala.interfacing.PatientService;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Simple JUnit test, which ensures the availability of the Coala-Communication
@@ -58,12 +53,12 @@ import org.openehealth.coala.interfacing.PatientService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/coala-system-context.xml" })
 @Ignore
-public class PXSQueryServiceIntegrationTest {
+public class PXSQueryServiceIT {
 
 	private static final String PID_FOR_PATIENT_FIND = "305010";
 
 	private static final Logger LOG = org.slf4j.LoggerFactory
-			.getLogger(PXSQueryServiceIntegrationTest.class);
+			.getLogger(PXSQueryServiceIT.class);
 
 	private String patientIDAssigningAuthorityUniversalId = "2.16.840.1.113883.3.37.4.1.1.2.2.1";
 	
@@ -72,14 +67,6 @@ public class PXSQueryServiceIntegrationTest {
 
 	@Autowired
 	private ConsentCreationService consentCreationService;
-	
-	@Before
-	public void setup() {
-	}
-
-	@After
-	public void tearDown() {
-	}
 
 	/**
 	 * Simply checks if it is possible to retrieve any information from the PXS
@@ -121,9 +108,5 @@ public class PXSQueryServiceIntegrationTest {
 		assertTrue(
 				"The number of consents is not as expected for the response for a FindDocumentQuery",
 				consents.getPatientConsents().size() > 0);
-	}
-
-	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(PXSQueryServiceIntegrationTest.class);
 	}
 }

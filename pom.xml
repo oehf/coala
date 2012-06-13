@@ -11,6 +11,7 @@
 		<url>http://www.openehealth.org</url>
 	</organization>
 	<modules>
+		<module>poms</module>
 		<module>modules</module>
 		<module>assemblies/coala</module>
 	</modules>
