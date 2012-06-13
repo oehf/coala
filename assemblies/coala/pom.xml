@@ -1,30 +1,28 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
 	<groupId>org.openehealth.coala</groupId>
 	<artifactId>coala</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Coala Web App</name>
-	<organization>
-		<name>Open eHealth Foundation</name>
-		<url>http://www.openehealth.org</url>
-	</organization>
-	<properties>
-		<spring.version>3.0.4.RELEASE</spring.version>
-	</properties>
+	
+	<parent>
+		<artifactId>coala-parent-pom</artifactId>
+		<groupId>org.openehealth.coala</groupId>
+		<version>0.1-SNAPSHOT</version>
+		<relativePath>../../poms</relativePath>
+	</parent>
+	
 	<dependencies>
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<version>2.4</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
-			<version>1.1.1</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.faces</groupId>
@@ -39,8 +37,6 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.geronimo.specs</groupId>
@@ -50,22 +46,18 @@
 		<dependency>
 			<groupId>org.openehealth.coala</groupId>
 			<artifactId>coala-domain</artifactId>
-			<version>0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openehealth.coala</groupId>
 			<artifactId>coala-communication</artifactId>
-			<version>0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openehealth.coala</groupId>
 			<artifactId>coala-ipf-pdq</artifactId>
-			<version>0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openehealth.coala</groupId>
 			<artifactId>coala-ipf-xds</artifactId>
-			<version>0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.richfaces.core</groupId>
@@ -90,33 +82,26 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>${spring.version}</version>
-			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 		
 		<dependency>
@@ -142,32 +127,5 @@
 		</dependency>
 		
 	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-				<version>2.3.2</version>
-			</plugin>
-			<!-- <plugin>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.6.1</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<encoding>utf-8</encoding>
-				</configuration>
-			</plugin>
-			 -->
-		</plugins>
-	</build>
+	
 </project>
