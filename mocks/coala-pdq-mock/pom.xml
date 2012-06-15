@@ -90,7 +90,7 @@
 		<!-- USE with Camel -->
 		<dependency>
 			<groupId>org.openehealth.ipf.platform-camel</groupId>
-			<artifactId>platform-camel-hl7</artifactId>
+			<artifactId>ipf-platform-camel-hl7</artifactId>
 			<version>${ipf-version}</version>
 		</dependency>
 		<!-- HAPI version? -->

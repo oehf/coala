@@ -25,15 +25,15 @@
 		</dependency>
 		<dependency>
     		<groupId>org.openehealth.ipf.platform-camel</groupId>
-   			 <artifactId>platform-camel-cda</artifactId>
+   			 <artifactId>ipf-platform-camel-cda</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.openehealth.ipf.commons</groupId>
-			<artifactId>commons-ihe-ws</artifactId>
+			<artifactId>ipf-commons-ihe-ws</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.openehealth.ipf.platform-camel</groupId>
-			<artifactId>platform-camel-ihe-xds</artifactId>
+			<artifactId>ipf-platform-camel-ihe-xds</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -41,15 +41,16 @@
 		</dependency>
 		<dependency>
 			<groupId>org.openehealth.ipf.commons</groupId>
-			<artifactId>commons-ihe-atna</artifactId>
+			<artifactId>ipf-commons-ihe-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.openehealth.ipf.platform-camel</groupId>
-			<artifactId>platform-camel-ihe-mllp</artifactId>
+			<artifactId>ipf-platform-camel-ihe-mllp</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.openehealth.ipf.modules</groupId>
-			<artifactId>modules-cda</artifactId>
+			<artifactId>ipf-modules-cda</artifactId>
+			<type>pom</type>
 		</dependency>
 
 		<dependency>
