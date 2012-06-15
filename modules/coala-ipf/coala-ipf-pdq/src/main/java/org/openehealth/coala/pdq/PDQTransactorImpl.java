@@ -22,7 +22,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultExchange;
 import org.openehealth.coala.exception.PDQConfigurationErrorException;
 import org.openehealth.coala.exception.PDQRequestFailedException;
-import org.openehealth.ipf.platform.camel.ihe.pixpdq.PixPdqCamelValidators;
+import org.openehealth.ipf.platform.camel.ihe.mllp.PixPdqCamelValidators;
 import org.slf4j.Logger;
 
 /**

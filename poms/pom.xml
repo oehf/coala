@@ -11,8 +11,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<copyright.year>2012</copyright.year>
 		<coala.version>0.1-SNAPSHOT</coala.version>
-		<spring.version>3.0.4.RELEASE</spring.version>
-		<ipf.version>2.2.1</ipf.version>
+		<spring.version>3.0.5.RELEASE</spring.version>
+		<ipf.version>2.3.1</ipf.version>
 	</properties>
 	<organization>
 		<name>Open eHealth Foundation</name>
@@ -123,32 +123,33 @@
 			</dependency>
 			<dependency>
 				<groupId>org.openehealth.ipf.commons</groupId>
-				<artifactId>commons-ihe-atna</artifactId>
+				<artifactId>ipf-commons-ihe-core</artifactId>
 				<version>${ipf.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.openehealth.ipf.commons</groupId>
-				<artifactId>commons-ihe-ws</artifactId>
+				<artifactId>ipf-commons-ihe-ws</artifactId>
 				<version>${ipf.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.openehealth.ipf.modules</groupId>
-				<artifactId>modules-cda</artifactId>
+				<artifactId>ipf-modules-cda</artifactId>
+				<version>${ipf.version}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.openehealth.ipf.platform-camel</groupId>
+				 <artifactId>ipf-platform-camel-cda</artifactId>
 				<version>${ipf.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.openehealth.ipf.platform-camel</groupId>
-				 <artifactId>platform-camel-cda</artifactId>
+				<artifactId>ipf-platform-camel-hl7</artifactId>
 				<version>${ipf.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.openehealth.ipf.platform-camel</groupId>
-				<artifactId>platform-camel-hl7</artifactId>
-				<version>${ipf.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.openehealth.ipf.platform-camel</groupId>
-				<artifactId>platform-camel-ihe-mllp</artifactId>
+				<artifactId>ipf-platform-camel-ihe-mllp</artifactId>
 				<version>${ipf.version}</version>
 				<exclusions>
 					<exclusion>
@@ -157,7 +158,7 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
-			<dependency>
+			<!-- <dependency>
 				<groupId>org.openehealth.ipf.platform-camel</groupId>
 				<artifactId>platform-camel-ihe-pixpdq</artifactId>
 				<version>${ipf.version}</version>
@@ -167,10 +168,10 @@
 						<groupId>org.slf4j</groupId>
 					</exclusion>
 				</exclusions>
-			</dependency>
+			</dependency> -->
 			<dependency>
 				<groupId>org.openehealth.ipf.platform-camel</groupId>
-				<artifactId>platform-camel-ihe-xds</artifactId>
+				<artifactId>ipf-platform-camel-ihe-xds</artifactId>
 				<version>${ipf.version}</version>
 			</dependency>
 			<dependency>
@@ -299,35 +300,104 @@
 		</plugins>
 	</reporting>
 	<repositories>
-		<repository>
-			<id>central</id>
-			<name>Central Maven Repository</name>
-			<url>http://repo1.maven.apache.org/maven2/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>openehealth.releases</id>
-			<name>Open eHealth Maven Repository</name>
-			<url>http://repo.openehealth.org/maven2/releases</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<!-- <repository>
-			<id>codehaus</id>
-			<name>Codehaus Maven Repository</name>
-			<url>http://repository.codehaus.org</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>-->
-	</repositories>
+        <repository>
+            <id>openehealth.releases</id>
+            <name>Open eHealth Maven Repository</name>
+            <url>http://repo.openehealth.org/maven2/releases</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>openehealth.snapshots</id>
+            <name>Open eHealth Maven Repository</name>
+            <url>http://repo.openehealth.org/maven2/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>repo1</id>
+            <name>Maven Repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>repo2</id>
+            <name>Maven Repository</name>
+            <url>http://repo2.maven.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>codehaus nexus</id>
+            <name>Codehaus Nexus Maven Repository</name>
+            <url>https://nexus.codehaus.org/content/repositories/releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>codehaus</id>
+            <name>Codehaus Maven Repository</name>
+            <url>http://repository.codehaus.org</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>java.net</id>
+            <name>java.net Maven Repository</name>
+            <url>http://download.java.net/maven/2/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>jboss</id>
+            <name>JBoss Maven Repository</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>servicemix</id>
+            <name>Apache ServiceMix Repository</name>
+            <url>http://svn.apache.org/repos/asf/servicemix/m2-repo/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>
