@@ -14,4 +14,4 @@ The JSF 2.0 based user interface provides a login, allows query and display
 of patient data, the display of the patient consent as well as the creation
 of new patient consents.
 
-[![Build Status](https://buildhive.cloudbees.com/job/oehf/job/coala/badge/icon)](https://buildhive.cloudbees.com/job/oehf/job/coala/)
+CoALA Continuous Integration: [![Build Status](https://buildhive.cloudbees.com/job/oehf/job/coala/badge/icon)](https://buildhive.cloudbees.com/job/oehf/job/coala/)
